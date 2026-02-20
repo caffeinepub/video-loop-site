@@ -1,138 +1,106 @@
 {
   "kind": "build_request",
-  "title": "Fix backend video finalization and persistence after chunked upload",
+  "title": "Fix backend video finalization timeout and persistence issues",
   "projectName": "Skeletal Clock",
   "priority": "high",
   "requirements": [
     {
-      "id": "REQ-81",
-      "text": "Fix the backend finalizeVideoUpload function in backend/main.mo to properly persist video metadata to stable storage after all chunks are received, ensuring the video state is committed and immediately available for retrieval",
+      "id": "REQ-87",
+      "text": "Optimize the backend finalizeVideoUpload function in backend/main.mo to complete video metadata persistence within 30 seconds by implementing efficient stable storage writes and eliminating any blocking operations that cause timeout failures",
       "target": "backend",
       "source": {
         "messageIds": [
           "msg-last"
         ],
         "quotes": [
-          "It is stuck at finalizing upload",
-          "No for all"
+          "Upload finalization timed out after 30 seconds. The backend may be experiencing issues."
         ]
       },
       "acceptanceCriteria": [
-        "After all chunks are uploaded, the finalizeVideoUpload function writes video metadata to stable storage",
-        "The video metadata includes total size, chunk count, and completion timestamp",
-        "Subsequent getMasterVideo calls immediately return the persisted video data",
-        "No silent failures occur during the finalization process"
+        "The finalizeVideoUpload function completes successfully within 30 seconds for the 49.1 MB video file",
+        "Video metadata is immediately persisted to stable storage after all chunks are received",
+        "The function returns success confirmation before the 30-second timeout",
+        "No blocking operations prevent timely completion"
       ]
     },
     {
-      "id": "REQ-82",
-      "text": "Add explicit error handling and logging in backend/main.mo finalizeVideoUpload function to catch and report any storage failures, memory allocation issues, or serialization errors that prevent video persistence",
+      "id": "REQ-88",
+      "text": "Add comprehensive error handling and detailed logging in backend/main.mo finalizeVideoUpload function to capture and return specific error information about storage failures, memory allocation issues, serialization errors, or any other issues preventing video persistence",
       "target": "backend",
       "source": {
         "messageIds": [
           "msg-last"
-        ],
-        "quotes": [
-          "There are NO error messages in the browser console"
         ]
       },
       "acceptanceCriteria": [
-        "Any errors during finalization are caught and returned to the frontend with specific error messages",
-        "Backend logs include details about storage operations, memory usage, and any failures",
-        "Frontend receives clear error responses when finalization fails instead of silent success"
+        "All potential error conditions in finalizeVideoUpload are caught and logged",
+        "Error messages include specific details about the failure type (storage, memory, serialization, etc.)",
+        "Error responses are returned to the frontend with actionable information",
+        "Console logs include timing information for debugging performance issues"
       ]
     },
     {
-      "id": "REQ-83",
-      "text": "Verify the backend stable memory allocation in backend/main.mo can accommodate the 49.1 MB video plus existing application data without exceeding canister limits, and add pre-finalization validation to check available storage capacity",
+      "id": "REQ-89",
+      "text": "Verify and optimize stable memory allocation in backend/main.mo to ensure sufficient capacity for the 49.1 MB video file plus existing application data, and add pre-finalization validation that checks available storage capacity before attempting to persist video data",
       "target": "backend",
       "source": {
         "messageIds": [
           "msg-last"
-        ],
-        "quotes": [
-          "the backend is failing to finalize and persist the video after all chunks are uploaded"
         ]
       },
       "acceptanceCriteria": [
-        "Before finalizing, the backend checks available stable memory capacity",
-        "If insufficient memory exists, the backend returns a clear error message to the frontend",
-        "The video finalization succeeds when adequate memory is available",
-        "Memory allocation supports the full 49.1 MB video size"
+        "Stable memory allocation is sufficient for 49.1 MB video plus existing data",
+        "Pre-finalization validation checks available storage capacity",
+        "Function returns clear error message if insufficient storage is available",
+        "Memory allocation issues do not cause silent failures or timeouts"
       ]
     },
     {
-      "id": "REQ-84",
-      "text": "Update the MasterVideoUploader component in frontend/src/components/MasterVideoUploader.tsx to handle finalization failure responses from the backend by displaying specific error messages and providing a retry upload option",
-      "target": "frontend",
+      "id": "REQ-90",
+      "text": "Review and optimize the video chunk assembly and persistence logic in backend/main.mo to ensure all 18 chunks of the 49.1 MB video are properly combined and committed to stable storage without data loss or corruption",
+      "target": "backend",
       "source": {
         "messageIds": [
           "msg-last"
-        ],
-        "quotes": [
-          "it stays stuck at 'Finalizing upload...'"
         ]
       },
       "acceptanceCriteria": [
-        "When the backend returns a finalization error, display the specific error message to the user",
-        "Show a 'Retry Upload' button that allows the user to attempt the upload again",
-        "Clear the stuck 'Finalizing upload...' state when an error is received",
-        "Provide actionable feedback about what went wrong and how to proceed"
+        "All 18 chunks are successfully assembled into complete video data",
+        "No data loss or corruption occurs during chunk assembly",
+        "Assembled video data is correctly persisted to stable storage",
+        "Video metadata accurately reflects the complete video state"
       ]
     },
     {
-      "id": "REQ-85",
-      "text": "Add a timeout mechanism (30 seconds) in the MasterVideoUploader component that detects when finalization takes too long and displays a timeout error message with retry option instead of staying stuck indefinitely",
-      "target": "frontend",
+      "id": "REQ-91",
+      "text": "Add backend performance monitoring and timing logs in backend/main.mo finalizeVideoUpload function to track the duration of each operation (chunk assembly, metadata creation, stable storage write, etc.) to identify bottlenecks causing the 30-second timeout",
+      "target": "backend",
       "source": {
         "messageIds": [
           "msg-last"
-        ],
-        "quotes": [
-          "it stays stuck at 'Finalizing upload...'",
-          "does NOT eventually show an error or timeout"
         ]
       },
       "acceptanceCriteria": [
-        "After 30 seconds in the 'Finalizing upload...' state, show a timeout error message",
-        "Provide a 'Retry Upload' button when timeout occurs",
-        "Log the timeout event to the console for debugging",
-        "Clear the finalization state when timeout is triggered"
-      ]
-    },
-    {
-      "id": "REQ-86",
-      "text": "Update the conditional rendering logic in frontend/src/pages/Home.tsx to detect finalization failures by checking if the video metadata query returns empty results after upload completion, and maintain the uploader UI with error state instead of switching to the player",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-last"
-        ],
-        "quotes": [
-          "Refreshing the page does NOT show the video player - it goes back to the upload interface"
-        ]
-      },
-      "acceptanceCriteria": [
-        "After upload completion, query the video metadata to verify it exists before switching to player",
-        "If metadata query returns empty/null, keep the uploader visible with an error state",
-        "Do not attempt to render the video player when no video metadata exists",
-        "On page refresh, correctly show the uploader when no persisted video is found"
+        "Each operation in finalizeVideoUpload is timed and logged",
+        "Logs clearly show which operation is causing delays",
+        "Performance data helps identify optimization opportunities",
+        "Timing information is included in error messages when timeout occurs"
       ]
     }
   ],
   "constraints": [
     "Maintain single-actor architecture in backend/main.mo",
-    "Do not modify immutable frontend paths: useInternetIdentity.ts, useInternetIdentity.tsx, useActor.ts, main.tsx, components/ui",
-    "Preserve existing chunked upload implementation (1.5MB chunks)",
-    "Keep video size limit at 500MB",
-    "Maintain existing React Query hooks structure for video queries"
+    "Do not modify frontend immutable paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui",
+    "Preserve existing chunked upload implementation in MasterVideoUploader component",
+    "Maintain existing timeout mechanism (30 seconds) in frontend",
+    "Do not exceed canister stable memory limits"
   ],
   "nonGoals": [
-    "Changing the chunked upload strategy or chunk size",
-    "Modifying the video player UI or styling",
-    "Adding new video formats beyond MP4",
-    "Implementing video compression or transcoding",
-    "Changing the authentication system"
+    "Changing the video file format or compression",
+    "Modifying the chunk size or number of chunks",
+    "Altering the frontend upload or retry logic",
+    "Implementing real-time upload progress streaming from backend",
+    "Adding external storage services or CDN integration"
   ],
   "imageRequirements": {
     "required": [],

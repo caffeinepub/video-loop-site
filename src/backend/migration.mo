@@ -4,78 +4,50 @@ import Nat "mo:core/Nat";
 import Storage "blob-storage/Storage";
 
 module {
-  type OldVideoId = Nat;
-  type OldChunkId = Nat;
+  type VideoId = Nat;
+  type ChunkId = Nat;
 
-  type OldMetadata = {
-    id : OldVideoId;
-    title : Text;
-    chunkCount : Nat;
-    isComplete : Bool;
-  };
+  // Old type alias from previous deployment
+  type OldVideoChunks = Map.Map<VideoId, List.List<ChunkId>>;
 
-  type OldVideo = {
-    title : Text;
+  // New VideoChunk type used in current deployment
+  type VideoChunk = {
+    id : ChunkId;
     content : Storage.ExternalBlob;
-    metadata : OldMetadata;
   };
 
+  // New videoChunks type definition for current version
+  type NewVideoChunks = Map.Map<VideoId, List.List<VideoChunk>>;
+
+  // Actor state type from old deployment (using OldVideoChunks)
   type OldActor = {
-    nextVideoId : OldVideoId;
-    nextChunkId : OldChunkId;
-    videoMetadata : Map.Map<OldVideoId, OldMetadata>;
-    videoChunks : Map.Map<OldVideoId, List.List<OldChunkId>>;
-    videos : Map.Map<OldVideoId, OldVideo>;
+    nextVideoId : Nat;
+    nextChunkId : Nat;
+    videoChunks : OldVideoChunks;
   };
 
-  type NewMetadata = {
-    id : OldVideoId;
-    title : Text;
-    chunkCount : Nat;
-    isComplete : Bool;
-    isPersistent : Bool;
-  };
-
-  type NewVideo = {
-    title : Text;
-    content : Storage.ExternalBlob;
-    metadata : NewMetadata;
-  };
-
+  // Actor state type for new deployment (using NewVideoChunks)
   type NewActor = {
-    nextVideoId : OldVideoId;
-    nextChunkId : OldChunkId;
-    videoMetadata : Map.Map<OldVideoId, NewMetadata>;
-    videoChunks : Map.Map<OldVideoId, List.List<OldChunkId>>;
-    videos : Map.Map<OldVideoId, NewVideo>;
+    nextVideoId : Nat;
+    nextChunkId : Nat;
+    videoChunks : NewVideoChunks;
   };
 
+  // Migration function to transform old actor state to new format
   public func run(old : OldActor) : NewActor {
-    let videoMetadata = old.videoMetadata.map<OldVideoId, OldMetadata, NewMetadata>(
-      func(_id, entry) {
-        {
-          entry with
-          isPersistent = false;
-        };
+    let newVideoChunks = old.videoChunks.map<VideoId, List.List<ChunkId>, List.List<VideoChunk>>(
+      func(_videoId, oldChunks) {
+        oldChunks.map<ChunkId, VideoChunk>(
+          func(chunkId) {
+            // Convert old ChunkId entry to new VideoChunk record
+            {
+              id = chunkId;
+              content = "" : Storage.ExternalBlob; // Placeholder as old data lacks this content
+            };
+          }
+        );
       }
     );
-
-    let videos = old.videos.map<OldVideoId, OldVideo, NewVideo>(
-      func(_id, video) {
-        {
-          video with
-          metadata = {
-            video.metadata with
-            isPersistent = false;
-          };
-        };
-      }
-    );
-
-    {
-      old with
-      videoMetadata;
-      videos;
-    };
+    { old with videoChunks = newVideoChunks };
   };
 };

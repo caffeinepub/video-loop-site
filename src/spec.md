@@ -1,14 +1,13 @@
 # Specification
 
 ## Summary
-**Goal:** Fix backend video finalization and persistence after chunked upload to ensure videos are saved and immediately retrievable.
+**Goal:** Fix backend video finalization timeout and persistence issues to enable successful upload of the 49.1 MB video file.
 
 **Planned changes:**
-- Fix backend finalizeVideoUpload function to properly persist video metadata to stable storage after all chunks are received
-- Add explicit error handling and logging in finalizeVideoUpload to catch and report storage failures, memory allocation issues, or serialization errors
-- Add pre-finalization validation to check available stable memory capacity before attempting to store the video
-- Update MasterVideoUploader component to handle finalization failure responses with specific error messages and retry option
-- Add 30-second timeout mechanism in MasterVideoUploader to detect stuck finalization and display timeout error with retry option
-- Update Home.tsx conditional rendering to verify video metadata exists after upload before switching from uploader to player UI
+- Optimize backend finalizeVideoUpload function to complete within 30 seconds by implementing efficient stable storage writes
+- Add comprehensive error handling and detailed logging to capture storage failures, memory issues, and serialization errors
+- Verify and optimize stable memory allocation with pre-finalization validation for storage capacity
+- Review and optimize chunk assembly logic to ensure all 18 chunks are properly combined and persisted
+- Add performance monitoring and timing logs to identify bottlenecks causing timeout
 
-**User-visible outcome:** After uploading a video, the upload completes successfully with the video immediately available for playback. If finalization fails, users see specific error messages and can retry the upload instead of being stuck at "Finalizing upload..." indefinitely.
+**User-visible outcome:** Users can successfully upload the 49.1 MB master video file without timeout errors, and the video is properly persisted and available in the application.

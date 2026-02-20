@@ -11,6 +11,8 @@ import type { IDL } from '@icp-sdk/core/candid';
 import type { Principal } from '@icp-sdk/core/principal';
 
 export type ExternalBlob = Uint8Array;
+export type Result = { 'error' : string } |
+  { 'success' : null };
 export interface Video {
   'title' : string,
   'content' : ExternalBlob,
@@ -51,7 +53,7 @@ export interface _SERVICE {
     _CaffeineStorageRefillResult
   >,
   '_caffeineStorageUpdateGatewayPrincipals' : ActorMethod<[], undefined>,
-  'finalizeVideoUpload' : ActorMethod<[VideoId, ExternalBlob], boolean>,
+  'finalizeVideoUpload' : ActorMethod<[VideoId], Result>,
   'getAllVideoMetadata' : ActorMethod<[], Array<VideoMetadata>>,
   'getAllVideos' : ActorMethod<[], Array<Video>>,
   'getMasterVideo' : ActorMethod<[VideoId], [] | [Video]>,

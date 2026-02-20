@@ -20,7 +20,7 @@ export const _CaffeineStorageRefillResult = IDL.Record({
   'topped_up_amount' : IDL.Opt(IDL.Nat),
 });
 export const VideoId = IDL.Nat;
-export const ExternalBlob = IDL.Vec(IDL.Nat8);
+export const Result = IDL.Variant({ 'error' : IDL.Text, 'success' : IDL.Null });
 export const VideoMetadata = IDL.Record({
   'id' : VideoId,
   'title' : IDL.Text,
@@ -28,6 +28,7 @@ export const VideoMetadata = IDL.Record({
   'isPersistent' : IDL.Bool,
   'isComplete' : IDL.Bool,
 });
+export const ExternalBlob = IDL.Vec(IDL.Nat8);
 export const Video = IDL.Record({
   'title' : IDL.Text,
   'content' : ExternalBlob,
@@ -61,7 +62,7 @@ export const idlService = IDL.Service({
       [],
     ),
   '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
-  'finalizeVideoUpload' : IDL.Func([VideoId, ExternalBlob], [IDL.Bool], []),
+  'finalizeVideoUpload' : IDL.Func([VideoId], [Result], []),
   'getAllVideoMetadata' : IDL.Func([], [IDL.Vec(VideoMetadata)], ['query']),
   'getAllVideos' : IDL.Func([], [IDL.Vec(Video)], ['query']),
   'getMasterVideo' : IDL.Func([VideoId], [IDL.Opt(Video)], ['query']),
@@ -87,7 +88,7 @@ export const idlFactory = ({ IDL }) => {
     'topped_up_amount' : IDL.Opt(IDL.Nat),
   });
   const VideoId = IDL.Nat;
-  const ExternalBlob = IDL.Vec(IDL.Nat8);
+  const Result = IDL.Variant({ 'error' : IDL.Text, 'success' : IDL.Null });
   const VideoMetadata = IDL.Record({
     'id' : VideoId,
     'title' : IDL.Text,
@@ -95,6 +96,7 @@ export const idlFactory = ({ IDL }) => {
     'isPersistent' : IDL.Bool,
     'isComplete' : IDL.Bool,
   });
+  const ExternalBlob = IDL.Vec(IDL.Nat8);
   const Video = IDL.Record({
     'title' : IDL.Text,
     'content' : ExternalBlob,
@@ -128,7 +130,7 @@ export const idlFactory = ({ IDL }) => {
         [],
       ),
     '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
-    'finalizeVideoUpload' : IDL.Func([VideoId, ExternalBlob], [IDL.Bool], []),
+    'finalizeVideoUpload' : IDL.Func([VideoId], [Result], []),
     'getAllVideoMetadata' : IDL.Func([], [IDL.Vec(VideoMetadata)], ['query']),
     'getAllVideos' : IDL.Func([], [IDL.Vec(Video)], ['query']),
     'getMasterVideo' : IDL.Func([VideoId], [IDL.Opt(Video)], ['query']),

@@ -213,16 +213,10 @@ export function useUploadMasterVideo() {
         console.log('[useUploadMasterVideo] All chunks uploaded, finalizing...');
         onProgress?.(97);
         
-        // Create the final ExternalBlob from complete video data - ensure proper ArrayBuffer type
-        const finalArrayBuffer = new ArrayBuffer(videoData.length);
-        const finalView = new Uint8Array(finalArrayBuffer);
-        finalView.set(videoData);
-        const finalBlob = ExternalBlob.fromBytes(finalView);
+        const finalizeResult = await actor.finalizeVideoUpload(videoId);
         
-        const finalizeResult = await actor.finalizeVideoUpload(videoId, finalBlob);
-        
-        if (!finalizeResult) {
-          throw new Error('Failed to finalize video upload. The video may not be complete.');
+        if (finalizeResult.__kind__ === 'error') {
+          throw new Error(`Failed to finalize video upload: ${finalizeResult.error}`);
         }
 
         const uploadEndTime = performance.now();

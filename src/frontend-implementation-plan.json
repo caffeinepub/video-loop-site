@@ -1,63 +1,6 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Fix frontend video finalization error handling and timeout detection",
-  "requirements": [
-    {
-      "id": "REQ-84",
-      "summary": "Update MasterVideoUploader to handle finalization failure responses from the backend by displaying specific error messages and providing a retry upload option",
-      "acceptanceCriteria": [
-        "When the backend returns a finalization error, display the specific error message to the user",
-        "Show a 'Retry Upload' button that allows the user to attempt the upload again",
-        "Clear the stuck 'Finalizing upload...' state when an error is received",
-        "Provide actionable feedback about what went wrong and how to proceed"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/MasterVideoUploader.tsx",
-          "operation": "modify",
-          "description": "Add error state management for finalization failures. Wrap the finalizeVideoUpload mutation call in a try-catch block to capture backend errors. Add a new state variable to track finalization errors. Display the error message in the UI when finalization fails. Add a 'Retry Upload' button that resets the component state and allows the user to select and upload the file again. Clear the 'Finalizing upload...' message when an error occurs and show the error state instead."
-        }
-      ]
-    },
-    {
-      "id": "REQ-85",
-      "summary": "Add a timeout mechanism (30 seconds) in the MasterVideoUploader component that detects when finalization takes too long and displays a timeout error message with retry option",
-      "acceptanceCriteria": [
-        "After 30 seconds in the 'Finalizing upload...' state, show a timeout error message",
-        "Provide a 'Retry Upload' button when timeout occurs",
-        "Log the timeout event to the console for debugging",
-        "Clear the finalization state when timeout is triggered"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/MasterVideoUploader.tsx",
-          "operation": "modify",
-          "description": "Add timeout detection for finalization. Create a useEffect that starts a 30-second timer when finalization begins. Store the timer reference in a useRef. If the timer expires before finalization completes, set an error state with a timeout message. Clear the timer when finalization succeeds or fails. Log the timeout event to the console. Display the timeout error message in the UI with a 'Retry Upload' button. Ensure the timer is cleaned up when the component unmounts or when finalization completes."
-        }
-      ]
-    },
-    {
-      "id": "REQ-86",
-      "summary": "Update conditional rendering logic in Home.tsx to detect finalization failures by checking if video metadata query returns empty results after upload completion, and maintain the uploader UI with error state instead of switching to the player",
-      "acceptanceCriteria": [
-        "After upload completion, query the video metadata to verify it exists before switching to player",
-        "If metadata query returns empty/null, keep the uploader visible with an error state",
-        "Do not attempt to render the video player when no video metadata exists",
-        "On page refresh, correctly show the uploader when no persisted video is found"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/Home.tsx",
-          "operation": "modify",
-          "description": "Update the conditional rendering logic that decides whether to show the MasterVideoUploader or MasterPresentationPlayer. Currently, the page uses the getMasterVideo query result to determine which component to render. Add explicit null/empty checks on the video data before rendering the player. If the video query returns null or undefined, render the MasterVideoUploader instead of the player. Add a state variable to track upload completion events from the uploader component. After an upload completes, refetch the video metadata to verify the video was persisted. If the refetch returns null/empty, pass an error state prop to the MasterVideoUploader to indicate the upload succeeded but persistence failed. On page refresh, the existing query logic should correctly show the uploader when no video is found."
-        },
-        {
-          "path": "frontend/src/components/MasterVideoUploader.tsx",
-          "operation": "modify",
-          "description": "Add support for receiving an external error state prop from the parent component (Home.tsx). Add a new optional prop 'persistenceError' that can be passed from the parent when upload succeeds but video persistence fails. Display this error message in the UI if present. The prop allows the parent page to communicate backend persistence failures that are detected after upload completion. Ensure the error state is displayed with a 'Retry Upload' button."
-        }
-      ]
-    }
-  ]
+  "title": "Fix backend video finalization timeout and persistence issues",
+  "requirements": []
 }
