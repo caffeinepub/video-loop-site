@@ -1,4 +1,62 @@
 {
   "kind": "feature_evidence_report",
-  "features": []
+  "features": [
+    {
+      "featureId": "feature-hide-the-master-presentation-section-video-upload-functionality-by-commenting-out-or-conditionally-disabling-the-mastervideouploader-component-rendering-in-frontend-src-pages-home-tsx-without-deleting-the-code",
+      "featureTitle": "Hide the Master Presentation section video upload functionality by commenting out or conditionally disabling the MasterVideoUploader component rendering in frontend/src/pages/Home.tsx without deleting the code",
+      "files": [
+        "frontend/src/pages/Home.tsx"
+      ],
+      "components": [
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-87"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-hide-the-master-presentation-section-video-player-functionality-by-commenting-out-or-conditionally-disabling-the-masterpresentationplayer-component-rendering-in-frontend-src-pages-home-tsx-without-deleting-the-code",
+      "featureTitle": "Hide the Master Presentation section video player functionality by commenting out or conditionally disabling the MasterPresentationPlayer component rendering in frontend/src/pages/Home.tsx without deleting the code",
+      "files": [
+        "frontend/src/pages/Home.tsx"
+      ],
+      "components": [
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-88"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-replace-the-master-presentation-section-content-in-frontend-src-pages-home-tsx-with-a-static-image-display-component-that-renders-the-generated-forensic-anthropology-themed-image-from-frontend-public-assets-generated-forensic-clock-hero-dim-1200x600-png",
+      "featureTitle": "Replace the Master Presentation section content in frontend/src/pages/Home.tsx with a static image display component that renders the generated forensic anthropology themed image from frontend/public/assets/generated/forensic-clock-hero.dim_1200x600.png",
+      "files": [
+        "frontend/src/pages/Home.tsx"
+      ],
+      "components": [
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-90"
+      ],
+      "confidence": "high"
+    }
+  ]
 }

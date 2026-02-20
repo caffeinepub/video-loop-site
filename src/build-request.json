@@ -1,109 +1,100 @@
 {
   "kind": "build_request",
-  "title": "Fix backend video finalization timeout and persistence issues",
+  "title": "Replace Master Presentation video functionality with thematic image",
   "projectName": "Skeletal Clock",
-  "priority": "high",
+  "priority": "normal",
   "requirements": [
     {
       "id": "REQ-87",
-      "text": "Optimize the backend finalizeVideoUpload function in backend/main.mo to complete video metadata persistence within 30 seconds by implementing efficient stable storage writes and eliminating any blocking operations that cause timeout failures",
-      "target": "backend",
+      "text": "Hide the Master Presentation section video upload functionality by commenting out or conditionally disabling the MasterVideoUploader component rendering in frontend/src/pages/Home.tsx without deleting the code",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-last"
+          "msg-latest"
         ],
         "quotes": [
-          "Upload finalization timed out after 30 seconds. The backend may be experiencing issues."
+          "please hide the video related code"
         ]
       },
       "acceptanceCriteria": [
-        "The finalizeVideoUpload function completes successfully within 30 seconds for the 49.1 MB video file",
-        "Video metadata is immediately persisted to stable storage after all chunks are received",
-        "The function returns success confirmation before the 30-second timeout",
-        "No blocking operations prevent timely completion"
+        "MasterVideoUploader component is no longer rendered in the Master Presentation section",
+        "Video upload code remains in the codebase but is disabled/commented out",
+        "No video upload interface appears on the Home page"
       ]
     },
     {
       "id": "REQ-88",
-      "text": "Add comprehensive error handling and detailed logging in backend/main.mo finalizeVideoUpload function to capture and return specific error information about storage failures, memory allocation issues, serialization errors, or any other issues preventing video persistence",
-      "target": "backend",
+      "text": "Hide the Master Presentation section video player functionality by commenting out or conditionally disabling the MasterPresentationPlayer component rendering in frontend/src/pages/Home.tsx without deleting the code",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-last"
+          "msg-latest"
+        ],
+        "quotes": [
+          "please hide the video related code"
         ]
       },
       "acceptanceCriteria": [
-        "All potential error conditions in finalizeVideoUpload are caught and logged",
-        "Error messages include specific details about the failure type (storage, memory, serialization, etc.)",
-        "Error responses are returned to the frontend with actionable information",
-        "Console logs include timing information for debugging performance issues"
+        "MasterPresentationPlayer component is no longer rendered in the Master Presentation section",
+        "Video player code remains in the codebase but is disabled/commented out",
+        "No video player appears on the Home page"
       ]
     },
     {
       "id": "REQ-89",
-      "text": "Verify and optimize stable memory allocation in backend/main.mo to ensure sufficient capacity for the 49.1 MB video file plus existing application data, and add pre-finalization validation that checks available storage capacity before attempting to persist video data",
+      "text": "Hide backend video endpoints by commenting out or conditionally disabling the video-related public functions in backend/main.mo (initVideo, uploadChunk, finalizeVideo, getMasterVideo, getVideoMetadata) without deleting the code",
       "target": "backend",
       "source": {
         "messageIds": [
-          "msg-last"
+          "msg-latest"
+        ],
+        "quotes": [
+          "please hide the video related code"
         ]
       },
       "acceptanceCriteria": [
-        "Stable memory allocation is sufficient for 49.1 MB video plus existing data",
-        "Pre-finalization validation checks available storage capacity",
-        "Function returns clear error message if insufficient storage is available",
-        "Memory allocation issues do not cause silent failures or timeouts"
+        "Video-related backend endpoints are no longer accessible from the frontend",
+        "Backend video code remains in the codebase but is disabled/commented out",
+        "Backend compiles successfully with video functionality hidden"
       ]
     },
     {
       "id": "REQ-90",
-      "text": "Review and optimize the video chunk assembly and persistence logic in backend/main.mo to ensure all 18 chunks of the 49.1 MB video are properly combined and committed to stable storage without data loss or corruption",
-      "target": "backend",
+      "text": "Replace the Master Presentation section content in frontend/src/pages/Home.tsx with a static image display component that renders the generated forensic anthropology themed image from frontend/public/assets/generated/forensic-clock-hero.dim_1200x600.png",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-last"
+          "msg-latest"
+        ],
+        "quotes": [
+          "just put a relatable image in its place",
+          "Relevant image with something that fits the overall theme"
         ]
       },
       "acceptanceCriteria": [
-        "All 18 chunks are successfully assembled into complete video data",
-        "No data loss or corruption occurs during chunk assembly",
-        "Assembled video data is correctly persisted to stable storage",
-        "Video metadata accurately reflects the complete video state"
-      ]
-    },
-    {
-      "id": "REQ-91",
-      "text": "Add backend performance monitoring and timing logs in backend/main.mo finalizeVideoUpload function to track the duration of each operation (chunk assembly, metadata creation, stable storage write, etc.) to identify bottlenecks causing the 30-second timeout",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-last"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Each operation in finalizeVideoUpload is timed and logged",
-        "Logs clearly show which operation is causing delays",
-        "Performance data helps identify optimization opportunities",
-        "Timing information is included in error messages when timeout occurs"
+        "Master Presentation section displays a static image instead of video components",
+        "Image is properly styled to fill the section container with appropriate aspect ratio and rounded corners",
+        "Image styling matches the existing dark theme design with consistent spacing",
+        "Image is responsive and maintains proper sizing across different viewport sizes"
       ]
     }
   ],
   "constraints": [
-    "Maintain single-actor architecture in backend/main.mo",
-    "Do not modify frontend immutable paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui",
-    "Preserve existing chunked upload implementation in MasterVideoUploader component",
-    "Maintain existing timeout mechanism (30 seconds) in frontend",
-    "Do not exceed canister stable memory limits"
+    "Do not delete any existing video-related code; only hide/disable it through comments or conditional logic",
+    "Maintain all existing Scene sections and their content unchanged",
+    "Preserve the dark theme with blue accents and OKLCH color system",
+    "Keep the interactive metrics dashboard section at the bottom of the Home page"
   ],
   "nonGoals": [
-    "Changing the video file format or compression",
-    "Modifying the chunk size or number of chunks",
-    "Altering the frontend upload or retry logic",
-    "Implementing real-time upload progress streaming from backend",
-    "Adding external storage services or CDN integration"
+    "Deleting video upload/player components from the codebase",
+    "Removing backend video storage functionality permanently",
+    "Modifying any Scene section content or styling",
+    "Changing the metrics dashboard functionality"
   ],
   "imageRequirements": {
-    "required": [],
+    "required": [
+      "Forensic anthropology themed hero image showing skeletal age estimation visualization with clock elements, anatomical illustrations, and a professional scientific aesthetic in dark tones with blue accents (forensic-clock-hero.dim_1200x600.png)"
+    ],
     "edits": []
   }
 }

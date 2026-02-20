@@ -20,7 +20,6 @@ export const _CaffeineStorageRefillResult = IDL.Record({
   'topped_up_amount' : IDL.Opt(IDL.Nat),
 });
 export const VideoId = IDL.Nat;
-export const Result = IDL.Variant({ 'error' : IDL.Text, 'success' : IDL.Null });
 export const VideoMetadata = IDL.Record({
   'id' : VideoId,
   'title' : IDL.Text,
@@ -62,15 +61,10 @@ export const idlService = IDL.Service({
       [],
     ),
   '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
-  'finalizeVideoUpload' : IDL.Func([VideoId], [Result], []),
   'getAllVideoMetadata' : IDL.Func([], [IDL.Vec(VideoMetadata)], ['query']),
   'getAllVideos' : IDL.Func([], [IDL.Vec(Video)], ['query']),
-  'getMasterVideo' : IDL.Func([VideoId], [IDL.Opt(Video)], ['query']),
-  'getVideoMetadata' : IDL.Func([VideoId], [IDL.Opt(VideoMetadata)], ['query']),
-  'initializeVideo' : IDL.Func([IDL.Text], [VideoId], []),
   'removeVideo' : IDL.Func([VideoId], [IDL.Bool], []),
   'updateVideoMetadata' : IDL.Func([VideoId, IDL.Text], [IDL.Bool], []),
-  'uploadChunk' : IDL.Func([VideoId, ExternalBlob], [IDL.Bool], []),
 });
 
 export const idlInitArgs = [];
@@ -88,7 +82,6 @@ export const idlFactory = ({ IDL }) => {
     'topped_up_amount' : IDL.Opt(IDL.Nat),
   });
   const VideoId = IDL.Nat;
-  const Result = IDL.Variant({ 'error' : IDL.Text, 'success' : IDL.Null });
   const VideoMetadata = IDL.Record({
     'id' : VideoId,
     'title' : IDL.Text,
@@ -130,19 +123,10 @@ export const idlFactory = ({ IDL }) => {
         [],
       ),
     '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
-    'finalizeVideoUpload' : IDL.Func([VideoId], [Result], []),
     'getAllVideoMetadata' : IDL.Func([], [IDL.Vec(VideoMetadata)], ['query']),
     'getAllVideos' : IDL.Func([], [IDL.Vec(Video)], ['query']),
-    'getMasterVideo' : IDL.Func([VideoId], [IDL.Opt(Video)], ['query']),
-    'getVideoMetadata' : IDL.Func(
-        [VideoId],
-        [IDL.Opt(VideoMetadata)],
-        ['query'],
-      ),
-    'initializeVideo' : IDL.Func([IDL.Text], [VideoId], []),
     'removeVideo' : IDL.Func([VideoId], [IDL.Bool], []),
     'updateVideoMetadata' : IDL.Func([VideoId, IDL.Text], [IDL.Bool], []),
-    'uploadChunk' : IDL.Func([VideoId, ExternalBlob], [IDL.Bool], []),
   });
 };
 

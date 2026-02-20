@@ -1,56 +1,60 @@
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { MasterPresentationPlayer } from '@/components/MasterPresentationPlayer';
-import { MasterVideoUploader } from '@/components/MasterVideoUploader';
+// Video components hidden - functionality preserved for future use
+// import { MasterPresentationPlayer } from '@/components/MasterPresentationPlayer';
+// import { MasterVideoUploader } from '@/components/MasterVideoUploader';
 import { MetricsDashboard } from '@/components/MetricsDashboard';
 import { Play, Loader2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { useGetMasterVideo, useGetMasterVideoBlob } from '@/hooks/useQueries';
+// Video queries hidden - functionality preserved for future use
+// import { useGetMasterVideo, useGetMasterVideoBlob } from '@/hooks/useQueries';
 import { useQueryClient } from '@tanstack/react-query';
 
 export function Home() {
   const [activeScene, setActiveScene] = useState(6);
-  const [persistenceError, setPersistenceError] = useState<string | null>(null);
-  const { data: masterVideo, isLoading: isMasterVideoLoading, isFetching: isMasterVideoFetching } = useGetMasterVideo();
-  const { data: masterVideoBlob, isLoading: isBlobLoading } = useGetMasterVideoBlob();
+  // Video state hidden - functionality preserved for future use
+  // const [persistenceError, setPersistenceError] = useState<string | null>(null);
+  // const { data: masterVideo, isLoading: isMasterVideoLoading, isFetching: isMasterVideoFetching } = useGetMasterVideo();
+  // const { data: masterVideoBlob, isLoading: isBlobLoading } = useGetMasterVideoBlob();
   const queryClient = useQueryClient();
 
-  const handleUploadComplete = async () => {
-    console.log('[Home:MasterPresentation] Upload complete callback triggered at', new Date().toISOString());
-    
-    // Clear any previous persistence errors
-    setPersistenceError(null);
-    
-    // Invalidate and refetch the master video queries to update the UI
-    console.log('[Home:MasterPresentation] Invalidating queries...');
-    await queryClient.invalidateQueries({ queryKey: ['masterVideo'] });
-    await queryClient.invalidateQueries({ queryKey: ['masterVideoBlob'] });
-    
-    console.log('[Home:MasterPresentation] Queries invalidated, refetch will trigger automatically');
-    
-    // Wait a moment for queries to refetch, then verify persistence
-    setTimeout(async () => {
-      console.log('[Home:MasterPresentation] Verifying video persistence...');
-      
-      // Refetch to get the latest data
-      const result = await queryClient.refetchQueries({ queryKey: ['masterVideo'] });
-      const videoData = result[0]?.data;
-      
-      console.log('[Home:MasterPresentation] Verification result:', {
-        hasData: !!videoData,
-        isComplete: videoData?.isComplete,
-        isPersistent: videoData?.isPersistent,
-      });
-      
-      // Check if video was actually persisted
-      if (!videoData || !videoData.isPersistent) {
-        console.error('[Home:MasterPresentation] Video upload succeeded but persistence failed');
-        setPersistenceError('Upload completed but the video could not be saved. Please try uploading again.');
-      }
-    }, 3000); // Wait 3 seconds for backend to finalize
-  };
+  // Video upload handler hidden - functionality preserved for future use
+  // const handleUploadComplete = async () => {
+  //   console.log('[Home:MasterPresentation] Upload complete callback triggered at', new Date().toISOString());
+  //   
+  //   // Clear any previous persistence errors
+  //   setPersistenceError(null);
+  //   
+  //   // Invalidate and refetch the master video queries to update the UI
+  //   console.log('[Home:MasterPresentation] Invalidating queries...');
+  //   await queryClient.invalidateQueries({ queryKey: ['masterVideo'] });
+  //   await queryClient.invalidateQueries({ queryKey: ['masterVideoBlob'] });
+  //   
+  //   console.log('[Home:MasterPresentation] Queries invalidated, refetch will trigger automatically');
+  //   
+  //   // Wait a moment for queries to refetch, then verify persistence
+  //   setTimeout(async () => {
+  //     console.log('[Home:MasterPresentation] Verifying video persistence...');
+  //     
+  //     // Refetch to get the latest data
+  //     const result = await queryClient.refetchQueries({ queryKey: ['masterVideo'] });
+  //     const videoData = result[0]?.data;
+  //     
+  //     console.log('[Home:MasterPresentation] Verification result:', {
+  //       hasData: !!videoData,
+  //       isComplete: videoData?.isComplete,
+  //       isPersistent: videoData?.isPersistent,
+  //     });
+  //     
+  //     // Check if video was actually persisted
+  //     if (!videoData || !videoData.isPersistent) {
+  //       console.error('[Home:MasterPresentation] Video upload succeeded but persistence failed');
+  //       setPersistenceError('Upload completed but the video could not be saved. Please try uploading again.');
+  //     }
+  //   }, 3000); // Wait 3 seconds for backend to finalize
+  // };
 
   const scenes = [
     { id: 1, label: '1' },
@@ -149,32 +153,32 @@ export function Home() {
 
   const currentScene = getSceneContent(activeScene);
 
-  // Check if master video is complete, persistent, and blob is available
-  const hasCompleteVideo = masterVideo?.isComplete === true && masterVideo?.isPersistent === true;
-  const hasBlobAvailable = !!masterVideoBlob;
-  
-  // Log state for debugging
-  console.log('[Home:MasterPresentation] Render state:', {
-    hasCompleteVideo,
-    hasBlobAvailable,
-    isMasterVideoLoading,
-    isMasterVideoFetching,
-    isBlobLoading,
-    masterVideoId: masterVideo?.id,
-    masterVideoTitle: masterVideo?.title,
-    masterVideoComplete: masterVideo?.isComplete,
-    masterVideoPersistent: masterVideo?.isPersistent,
-    persistenceError,
-  });
-
-  // Determine whether to show uploader or player
-  const shouldShowUploader = !hasCompleteVideo || !hasBlobAvailable || persistenceError !== null;
-  const shouldShowPlayer = hasCompleteVideo && hasBlobAvailable && persistenceError === null;
-
-  console.log('[Home:MasterPresentation] Component decision:', {
-    shouldShowUploader,
-    shouldShowPlayer,
-  });
+  // Video state checks hidden - functionality preserved for future use
+  // const hasCompleteVideo = masterVideo?.isComplete === true && masterVideo?.isPersistent === true;
+  // const hasBlobAvailable = !!masterVideoBlob;
+  // 
+  // // Log state for debugging
+  // console.log('[Home:MasterPresentation] Render state:', {
+  //   hasCompleteVideo,
+  //   hasBlobAvailable,
+  //   isMasterVideoLoading,
+  //   isMasterVideoFetching,
+  //   isBlobLoading,
+  //   masterVideoId: masterVideo?.id,
+  //   masterVideoTitle: masterVideo?.title,
+  //   masterVideoComplete: masterVideo?.isComplete,
+  //   masterVideoPersistent: masterVideo?.isPersistent,
+  //   persistenceError,
+  // });
+  //
+  // // Determine whether to show uploader or player
+  // const shouldShowUploader = !hasCompleteVideo || !hasBlobAvailable || persistenceError !== null;
+  // const shouldShowPlayer = hasCompleteVideo && hasBlobAvailable && persistenceError === null;
+  //
+  // console.log('[Home:MasterPresentation] Component decision:', {
+  //   shouldShowUploader,
+  //   shouldShowPlayer,
+  // });
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900">
@@ -212,7 +216,7 @@ export function Home() {
           </div>
         </section>
 
-        {/* Master Presentation Section */}
+        {/* Master Presentation Section - Now with static image */}
         <section className="py-16 px-4 bg-slate-900/50">
           <div className="container mx-auto max-w-6xl">
             <div className="space-y-8">
@@ -221,11 +225,33 @@ export function Home() {
                   Master Presentation
                 </h2>
                 <p className="text-blue-200 max-w-2xl mx-auto">
-                  Comprehensive video overview of forensic age estimation methodologies
+                  Comprehensive overview of forensic age estimation methodologies
                 </p>
               </div>
 
-              <div className="bg-slate-800/50 rounded-lg border border-blue-500/20 p-8">
+              <div className="bg-slate-800/50 rounded-lg border border-blue-500/20 overflow-hidden">
+                <div className="relative w-full aspect-[2/1]">
+                  <img
+                    src="/assets/generated/forensic-clock-hero.dim_1200x600.png"
+                    alt="Forensic Age Estimation - Skeletal Clock Methodology"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-8">
+                    <div className="space-y-2">
+                      <h3 className="text-2xl md:text-3xl font-bold text-white">
+                        Forensic Age Estimation Framework
+                      </h3>
+                      <p className="text-blue-200 max-w-3xl">
+                        A comprehensive visual guide to skeletal age indicators across the human lifespan, from prenatal development through advanced age assessment.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Video functionality hidden - preserved for future use */}
+              {/* <div className="bg-slate-800/50 rounded-lg border border-blue-500/20 p-8">
                 {isMasterVideoLoading || (isMasterVideoFetching && !masterVideo) ? (
                   <div className="flex flex-col items-center justify-center py-16 space-y-4">
                     <Loader2 className="h-12 w-12 animate-spin text-blue-400" />
@@ -247,7 +273,7 @@ export function Home() {
                     />
                   </div>
                 )}
-              </div>
+              </div> */}
             </div>
           </div>
         </section>
@@ -352,56 +378,53 @@ export function Home() {
                   </p>
 
                   <h3 className="text-xl font-semibold text-white mb-4">Methodology Overview</h3>
-                  <div className="space-y-4 text-blue-100">
-                    <div className="bg-slate-900/50 p-4 rounded border border-blue-500/10">
-                      <h4 className="font-semibold text-white mb-2">Subadult Age Estimation (0-20 years)</h4>
-                      <p className="text-sm">
-                        Primary methods include dental development analysis, long bone measurements, and epiphyseal fusion assessment. Accuracy: ±6 months to ±2 years depending on age range and skeletal elements available.
-                      </p>
-                    </div>
-                    <div className="bg-slate-900/50 p-4 rounded border border-blue-500/10">
-                      <h4 className="font-semibold text-white mb-2">Young Adult Assessment (20-40 years)</h4>
-                      <p className="text-sm">
-                        Focuses on pubic symphysis morphology (Suchey-Brooks method), sternal rib end analysis, and clavicle ossification. Accuracy: ±5-10 years with proper preservation and experience.
-                      </p>
-                    </div>
-                    <div className="bg-slate-900/50 p-4 rounded border border-blue-500/10">
-                      <h4 className="font-semibold text-white mb-2">Middle to Advanced Age (40+ years)</h4>
-                      <p className="text-sm">
-                        Utilizes cranial suture closure patterns, osteoarthritic changes, and bone density analysis. Accuracy decreases with age: ±10-15 years for individuals over 60.
-                      </p>
-                    </div>
-                  </div>
+                  <p className="text-blue-100 leading-relaxed mb-6">
+                    Age estimation methodologies vary by developmental stage. Prenatal and infant assessments rely on ossification center appearance and long bone measurements. Childhood and adolescent estimates utilize dental development and epiphyseal fusion patterns. Adult age determination employs degenerative changes in the pubic symphysis, cranial sutures, and articular surfaces.
+                  </p>
 
-                  <h3 className="text-xl font-semibold text-white mb-4 mt-8">Limitations and Considerations</h3>
-                  <ul className="list-disc list-inside space-y-2 text-blue-100 text-sm">
-                    <li>Population variation affects accuracy of age estimation standards</li>
-                    <li>Preservation quality significantly impacts reliability of assessments</li>
-                    <li>Individual biological variation can cause deviations from population norms</li>
-                    <li>Multiple indicators should be used when possible to improve accuracy</li>
-                    <li>Age estimates should always be reported with confidence intervals</li>
+                  <h3 className="text-xl font-semibold text-white mb-4">Key Findings</h3>
+                  <ul className="space-y-3 text-blue-100 mb-6">
+                    <li className="flex items-start">
+                      <span className="text-blue-400 mr-2">•</span>
+                      <span>Prenatal age estimation achieves ±1-2 week accuracy using crown-rump length and ossification center timing</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-blue-400 mr-2">•</span>
+                      <span>Dental development provides the most reliable age indicators for individuals aged 6 months to 21 years</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-blue-400 mr-2">•</span>
+                      <span>Epiphyseal fusion sequences offer ±2-3 year accuracy during adolescence and early adulthood</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-blue-400 mr-2">•</span>
+                      <span>Pubic symphysis morphology (Suchey-Brooks method) provides ±5-10 year estimates for adults aged 20-70</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-blue-400 mr-2">•</span>
+                      <span>Multivariate approaches combining multiple indicators improve accuracy and reduce bias</span>
+                    </li>
                   </ul>
+
+                  <h3 className="text-xl font-semibold text-white mb-4">Limitations and Considerations</h3>
+                  <p className="text-blue-100 leading-relaxed mb-6">
+                    Age estimation accuracy decreases with advancing age due to increased individual variation in degenerative processes. Population-specific standards must be applied when available, as skeletal development and aging patterns vary across ancestry groups. Environmental factors, nutrition, and health status can influence skeletal maturation rates and degenerative changes.
+                  </p>
+
+                  <h3 className="text-xl font-semibold text-white mb-4">Conclusions</h3>
+                  <p className="text-blue-100 leading-relaxed">
+                    Forensic age estimation requires careful integration of multiple skeletal indicators, consideration of population variation, and acknowledgment of method limitations. While no single technique provides definitive age determination, the systematic application of validated methods yields reliable age ranges suitable for medicolegal purposes. Continued research and refinement of statistical models promise improved accuracy and reduced uncertainty in future applications.
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Data Tables Section */}
+        {/* Data Tables Section - Metrics Dashboard */}
         <section id="data-tables" className="py-16 px-4">
           <div className="container mx-auto max-w-6xl">
-            <div className="space-y-8">
-              <div className="text-center space-y-3">
-                <h2 className="text-3xl md:text-4xl font-bold text-white">
-                  Metric Reference Standards
-                </h2>
-                <p className="text-blue-200 max-w-2xl mx-auto">
-                  Quantitative data and statistical models for forensic age estimation
-                </p>
-              </div>
-
-              <MetricsDashboard />
-            </div>
+            <MetricsDashboard />
           </div>
         </section>
       </main>

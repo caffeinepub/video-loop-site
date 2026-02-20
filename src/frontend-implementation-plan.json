@@ -1,6 +1,56 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Fix backend video finalization timeout and persistence issues",
-  "requirements": []
+  "title": "Replace Master Presentation video functionality with thematic image",
+  "requirements": [
+    {
+      "id": "REQ-87",
+      "summary": "Hide the Master Presentation section video upload functionality by commenting out the MasterVideoUploader component rendering",
+      "acceptanceCriteria": [
+        "MasterVideoUploader component is no longer rendered in the Master Presentation section",
+        "Video upload code remains in the codebase but is disabled/commented out",
+        "No video upload interface appears on the Home page"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/Home.tsx",
+          "operation": "modify",
+          "description": "Comment out or conditionally disable the MasterVideoUploader component rendering in the Master Presentation section while preserving the code and imports"
+        }
+      ]
+    },
+    {
+      "id": "REQ-88",
+      "summary": "Hide the Master Presentation section video player functionality by commenting out the MasterPresentationPlayer component rendering",
+      "acceptanceCriteria": [
+        "MasterPresentationPlayer component is no longer rendered in the Master Presentation section",
+        "Video player code remains in the codebase but is disabled/commented out",
+        "No video player appears on the Home page"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/Home.tsx",
+          "operation": "modify",
+          "description": "Comment out or conditionally disable the MasterPresentationPlayer component rendering in the Master Presentation section while preserving the code and imports"
+        }
+      ]
+    },
+    {
+      "id": "REQ-90",
+      "summary": "Replace the Master Presentation section content with a static forensic anthropology themed image display",
+      "acceptanceCriteria": [
+        "Master Presentation section displays a static image instead of video components",
+        "Image is properly styled to fill the section container with appropriate aspect ratio and rounded corners",
+        "Image styling matches the existing dark theme design with consistent spacing",
+        "Image is responsive and maintains proper sizing across different viewport sizes"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/Home.tsx",
+          "operation": "modify",
+          "description": "Add a static image display in the Master Presentation section that renders the generated forensic anthropology themed image from frontend/public/assets/generated/forensic-clock-hero.dim_1200x600.png. Style the image with proper aspect ratio handling, rounded corners matching the dark theme, and responsive sizing. Position the image within the existing Master Presentation container structure to replace the commented-out video components"
+        }
+      ]
+    }
+  ]
 }

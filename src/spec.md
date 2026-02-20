@@ -1,13 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Fix backend video finalization timeout and persistence issues to enable successful upload of the 49.1 MB video file.
+**Goal:** Hide video functionality in the Master Presentation section and replace it with a static thematic image.
 
 **Planned changes:**
-- Optimize backend finalizeVideoUpload function to complete within 30 seconds by implementing efficient stable storage writes
-- Add comprehensive error handling and detailed logging to capture storage failures, memory issues, and serialization errors
-- Verify and optimize stable memory allocation with pre-finalization validation for storage capacity
-- Review and optimize chunk assembly logic to ensure all 18 chunks are properly combined and persisted
-- Add performance monitoring and timing logs to identify bottlenecks causing timeout
+- Comment out MasterVideoUploader and MasterPresentationPlayer components in the Master Presentation section
+- Comment out backend video endpoints (initVideo, uploadChunk, finalizeVideo, getMasterVideo, getVideoMetadata)
+- Display a static forensic anthropology themed hero image in place of video components
 
-**User-visible outcome:** Users can successfully upload the 49.1 MB master video file without timeout errors, and the video is properly persisted and available in the application.
+**User-visible outcome:** The Master Presentation section displays a static forensic anthropology themed image instead of video upload/playback interface, while maintaining all other sections and functionality.

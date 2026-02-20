@@ -1,46 +1,25 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-20T03:25:20.244Z",
-  "summary": "The diff implements comprehensive backend optimizations for video finalization including error handling, performance logging, storage validation, and chunk assembly logic. All five requirements (REQ-87 through REQ-91) are addressed with detailed implementations in backend/main.mo. A migration module was added to handle data structure changes. Frontend hooks were modified to support the enhanced backend functionality.",
-  "missing_requirements": [],
-  "hallucinated_features": [
+  "generatedAt": "2026-02-20T03:40:51.671Z",
+  "summary": "The diff demonstrates comprehensive implementation of all requirements. REQ-87 and REQ-88 (frontend component hiding) are fully satisfied with commented-out code preserved in Home.tsx and useQueries.ts. REQ-89 (backend endpoint hiding) is implemented with all video functions commented out in backend/main.mo. REQ-90 (image replacement) is partially implemented but evidence is truncated - the Home.tsx file shows video components removed but the diff truncation prevents verification of the static image component implementation. All acceptance criteria appear met based on available evidence, though the image display component code is not visible in the truncated diff.",
+  "missing_requirements": [
     {
-      "description": "Migration module (backend/migration.mo) implementing data structure transformation for videoChunks from Map<VideoId, List<ChunkId>> to Map<VideoId, List<VideoChunk>>",
-      "reason": "The BuildRequest does not mention any need for data migration, schema changes, or handling of pre-existing deployment states. The constraints specify maintaining single-actor architecture but do not request migration functionality.",
+      "id": "REQ-90",
+      "requirement": "Replace the Master Presentation section content with a static image display component that renders forensic-clock-hero.dim_1200x600.png",
+      "reason": "The diff shows video components are commented out in Home.tsx, but the file is truncated before showing the replacement image component implementation. Cannot verify the static image component exists, its styling (rounded corners, aspect ratio, responsive sizing), or that it uses the correct image path.",
       "evidence": [
-        "backend/migration.mo",
-        "backend/main.mo"
-      ]
-    },
-    {
-      "description": "Frontend modifications including post-upload delay (POST_UPLOAD_DELAY = 2500ms), exponential backoff retry logic with specific timing (1s, 2s, 4s, 8s, 16s), and enhanced polling mechanisms in useQueries.ts",
-      "reason": "The BuildRequest explicitly states in non-goals: 'Altering the frontend upload or retry logic' and in constraints: 'Maintain existing timeout mechanism (30 seconds) in frontend'. The diff shows modifications to retry logic and delays that were explicitly excluded.",
-      "evidence": [
-        "frontend/src/hooks/useQueries.ts"
-      ]
-    },
-    {
-      "description": "Changes to MasterPresentationPlayer.tsx with automatic polling, exponential backoff, and connection reset error handling",
-      "reason": "The BuildRequest scope is limited to backend optimizations in backend/main.mo. Frontend component changes beyond what's necessary to consume the backend API were not requested.",
-      "evidence": [
-        "frontend/src/components/MasterPresentationPlayer.tsx"
-      ]
-    },
-    {
-      "description": "Modifications to MasterVideoUploader.tsx including external persistence error prop support and enhanced finalization state indicators",
-      "reason": "The constraints state 'Preserve existing chunked upload implementation in MasterVideoUploader component', suggesting minimal changes. The BuildRequest focuses on backend fixes, not frontend upload interface enhancements.",
-      "evidence": [
-        "frontend/src/components/MasterVideoUploader.tsx"
+        "frontend/src/pages/Home.tsx"
       ]
     }
   ],
-  "confidence": 0.85,
+  "hallucinated_features": [],
+  "confidence": 0.75,
   "changed_files": [
     "backend/main.mo",
-    "backend/migration.mo",
     "frontend-file-summaries.txt",
     "frontend/src/hooks/useQueries.ts",
+    "frontend/src/pages/Home.tsx",
     "project_state.json"
   ]
 }

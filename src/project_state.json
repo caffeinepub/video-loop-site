@@ -1,24 +1,21 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 35,
-  "summary": "Recreation of Skeletal Clock forensic age estimation website with custom video integration in Master Presentation section",
+  "projectStateVersion": 37,
+  "summary": "Recreation of Skeletal Clock forensic age estimation website with thematic image in Master Presentation section (video functionality hidden)",
   "architectural_notes": [
-    "Video elements should autoplay and loop continuously",
     "Website recreates Skeletal Clock forensic age estimation site structure",
-    "Video positioned in Master Presentation section with play button overlay",
     "Dark theme with blue accents and numbered navigation (1-7)",
     "Includes Interactive Chronology scenes and forensic report content",
-    "User will provide custom video file to replace placeholder",
     "Scene 3 displays Childhood Growth content with hand/foot ossification details and illustration",
     "Scene 4 displays Young Adult Transitions content with ectocranial suture closure details and brain model image",
     "Scene cards follow consistent layout: scene number label (blue), title, subtitle, description text, and three tag labels at bottom",
-    "Scenes 5, 6, and 7 will be positioned after existing Scene 3 and Scene 4 in the chronology flow"
+    "Scenes 5, 6, and 7 will be positioned after existing Scene 3 and Scene 4 in the chronology flow",
+    "Video functionality hidden from UI but code preserved for potential future restoration",
+    "Master Presentation section displays static forensic anthropology themed image instead of video player"
   ],
-  "known_issues": [
-    "Backend finalizeVideoUpload function fails to persist video metadata after chunked upload completes, causing getMasterVideo to return nothing",
-    "Frontend remains stuck at 'Finalizing upload...' message indefinitely with no console errors when backend finalization silently fails"
-  ],
-  "isFixRequest": true,
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Forensic anthropology themed hero image showing skeletal age estimation visualization with clock elements, anatomical illustrations, and a professional scientific aesthetic in dark tones with blue accents (forensic-clock-hero.dim_1200x600.png)",
   "existing_features": [
     {
       "id": "feature-recreate-the-visual-design-and-layout-from-https-flo-fun-rvak1mp-including-all-visible-sections-content-structure-and-styling-patterns",
@@ -611,23 +608,33 @@
         "REQ-86"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-hide-the-master-presentation-section-video-upload-functionality-by-commenting-out-or-conditionally-disabling-the-mastervideouploader-component-rendering-in-frontend-src-pages-home-tsx-without-deleting-the-code",
+      "title": "Hide the Master Presentation section video upload functionality by commenting out or conditionally disabling the MasterVideoUploader component rendering in frontend/src/pages/Home.tsx without deleting the code",
+      "reqIds": [
+        "REQ-87"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-hide-the-master-presentation-section-video-player-functionality-by-commenting-out-or-conditionally-disabling-the-masterpresentationplayer-component-rendering-in-frontend-src-pages-home-tsx-without-deleting-the-code",
+      "title": "Hide the Master Presentation section video player functionality by commenting out or conditionally disabling the MasterPresentationPlayer component rendering in frontend/src/pages/Home.tsx without deleting the code",
+      "reqIds": [
+        "REQ-88"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-the-master-presentation-section-content-in-frontend-src-pages-home-tsx-with-a-static-image-display-component-that-renders-the-generated-forensic-anthropology-themed-image-from-frontend-public-assets-generated-forensic-clock-hero-dim-1200x600-png",
+      "title": "Replace the Master Presentation section content in frontend/src/pages/Home.tsx with a static image display component that renders the generated forensic anthropology themed image from frontend/public/assets/generated/forensic-clock-hero.dim_1200x600.png",
+      "reqIds": [
+        "REQ-90"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
-    {
-      "id": "AR-3",
-      "summary": "Place video in Master Presentation section with play button overlay",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-6",
-      "summary": "Implement a backend endpoint that accepts and stores the user's video file for display in the Master Presentation section",
-      "reqIds": [
-        "REQ-7"
-      ],
-      "status": "pending"
-    },
     {
       "id": "AR-7",
       "summary": "Create Scene 5 section with Mature Adult Indicators content from uploaded image",
@@ -653,148 +660,22 @@
       "status": "pending"
     },
     {
-      "id": "AR-12",
-      "summary": "Enhance backend video storage implementation in main.mo to properly handle MP4 video file data and ensure reliable blob storage for ExternalBlob objects",
-      "reqIds": [
-        "REQ-30"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-13",
-      "summary": "Implement chunked upload strategy in the backend to handle large video files (up to 500 MB) by accepting video data in smaller segments to avoid message size limit rejections",
-      "reqIds": [
-        "REQ-47"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-14",
-      "summary": "Increase the backend canister's stable memory allocation and upgrade settings to accommodate large video files alongside existing chart/graph data without capacity constraints",
-      "reqIds": [
-        "REQ-48"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-15",
-      "summary": "Fix the backend finalizeVideoUpload function in backend/main.mo to properly confirm and persist the completed video upload after all chunks are received, ensuring the video metadata is correctly stored and retrievable",
-      "reqIds": [
-        "REQ-57"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-17",
-      "summary": "Fix the backend getMasterVideo query endpoint in backend/main.mo to properly serve the 49.1 MB video blob without timing out or causing ERR_CONNECTION_RESET errors when the frontend attempts to retrieve it",
-      "reqIds": [
-        "REQ-63"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-19",
-      "summary": "Optimize the backend video blob serialization in backend/main.mo to ensure the 49.1 MB video data can be efficiently retrieved in a single response or implement chunked retrieval if the blob size exceeds canister response limits",
-      "reqIds": [
-        "REQ-65"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-20",
-      "summary": "Add delay after upload completion before video retrieval and implement polling logic in video player to handle backend finalization",
+      "id": "AR-40",
+      "summary": "Remove video upload functionality from Master Presentation section and replace with a relevant forensic anthropology/skeletal clock themed image",
       "reqIds": [],
       "status": "pending"
     },
     {
-      "id": "AR-21",
-      "summary": "Improve UI transition logic to smoothly switch from uploader to player once video is confirmed retrievable",
+      "id": "AR-41",
+      "summary": "Hide all video-related code (uploader, player, backend endpoints) rather than deleting, so it can be restored later if needed",
       "reqIds": [],
       "status": "pending"
     },
     {
-      "id": "AR-22",
-      "summary": "Add better status messaging during the preparing for playback phase so user can see what is happening",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-30",
-      "summary": "Verify the backend finalizeVideoUpload function in backend/main.mo properly confirms and persists the completed video upload after all 18 chunks are received for the 49.1 MB video file, ensuring video metadata is correctly stored and immediately retrievable",
-      "reqIds": [
-        "REQ-79"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-31",
-      "summary": "Verify the backend getMasterVideo query endpoint in backend/main.mo can reliably serve the 49.1 MB video blob without timing out or causing ERR_CONNECTION_RESET errors when the frontend attempts to retrieve it immediately after upload completion",
-      "reqIds": [
-        "REQ-80"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-32",
-      "summary": "Fix the backend finalizeVideoUpload function in backend/main.mo to properly persist video metadata to stable storage after all chunks are received, ensuring the video state is committed and immediately available for retrieval",
-      "reqIds": [
-        "REQ-81"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-33",
-      "summary": "Add explicit error handling and logging in backend/main.mo finalizeVideoUpload function to catch and report any storage failures, memory allocation issues, or serialization errors that prevent video persistence",
-      "reqIds": [
-        "REQ-82"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-34",
-      "summary": "Verify the backend stable memory allocation in backend/main.mo can accommodate the 49.1 MB video plus existing application data without exceeding canister limits, and add pre-finalization validation to check available storage capacity",
-      "reqIds": [
-        "REQ-83"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-35",
-      "summary": "Optimize the backend finalizeVideoUpload function in backend/main.mo to complete video metadata persistence within 30 seconds by implementing efficient stable storage writes and eliminating any blocking operations that cause timeout failures",
-      "reqIds": [
-        "REQ-87"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-36",
-      "summary": "Add comprehensive error handling and detailed logging in backend/main.mo finalizeVideoUpload function to capture and return specific error information about storage failures, memory allocation issues, serialization errors, or any other issues preventing video persistence",
-      "reqIds": [
-        "REQ-88"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-37",
-      "summary": "Verify and optimize stable memory allocation in backend/main.mo to ensure sufficient capacity for the 49.1 MB video file plus existing application data, and add pre-finalization validation that checks available storage capacity before attempting to persist video data",
+      "id": "AR-44",
+      "summary": "Hide backend video endpoints by commenting out or conditionally disabling the video-related public functions in backend/main.mo (initVideo, uploadChunk, finalizeVideo, getMasterVideo, getVideoMetadata) without deleting the code",
       "reqIds": [
         "REQ-89"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-38",
-      "summary": "Review and optimize the video chunk assembly and persistence logic in backend/main.mo to ensure all 18 chunks of the 49.1 MB video are properly combined and committed to stable storage without data loss or corruption",
-      "reqIds": [
-        "REQ-90"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-39",
-      "summary": "Add backend performance monitoring and timing logs in backend/main.mo finalizeVideoUpload function to track the duration of each operation (chunk assembly, metadata creation, stable storage write, etc.) to identify bottlenecks causing the 30-second timeout",
-      "reqIds": [
-        "REQ-91"
       ],
       "status": "pending"
     }
