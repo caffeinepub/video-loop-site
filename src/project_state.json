@@ -1,0 +1,766 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 33,
+  "summary": "Recreation of Skeletal Clock forensic age estimation website with custom video integration in Master Presentation section",
+  "architectural_notes": [
+    "Video elements should autoplay and loop continuously",
+    "Website recreates Skeletal Clock forensic age estimation site structure",
+    "Video positioned in Master Presentation section with play button overlay",
+    "Dark theme with blue accents and numbered navigation (1-7)",
+    "Includes Interactive Chronology scenes and forensic report content",
+    "User will provide custom video file to replace placeholder",
+    "Scene 3 displays Childhood Growth content with hand/foot ossification details and illustration",
+    "Scene 4 displays Young Adult Transitions content with ectocranial suture closure details and brain model image",
+    "Scene cards follow consistent layout: scene number label (blue), title, subtitle, description text, and three tag labels at bottom",
+    "Scenes 5, 6, and 7 will be positioned after existing Scene 3 and Scene 4 in the chronology flow"
+  ],
+  "known_issues": [
+    "Backend finalizeVideoUpload function fails to persist video metadata after chunked upload completes, causing getMasterVideo to return nothing",
+    "Frontend remains stuck at 'Finalizing upload...' message indefinitely with no console errors when backend finalization silently fails"
+  ],
+  "isFixRequest": true,
+  "existing_features": [
+    {
+      "id": "feature-recreate-the-visual-design-and-layout-from-https-flo-fun-rvak1mp-including-all-visible-sections-content-structure-and-styling-patterns",
+      "title": "Recreate the visual design and layout from https://flo.fun/rVAK1MP/ including all visible sections, content structure, and styling patterns",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-video-insertion-functionality-that-allows-users-to-add-video-content-to-the-page",
+      "title": "Implement video insertion functionality that allows users to add video content to the page",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-configure-inserted-videos-to-autoplay-automatically-when-the-page-loads",
+      "title": "Configure inserted videos to autoplay automatically when the page loads",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-configure-inserted-videos-to-loop-continuously-without-stopping",
+      "title": "Configure inserted videos to loop continuously without stopping",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-creative-visual-theme-with-distinctive-colors-avoiding-blue-and-purple-typography-and-layout-style-that-creates-a-cohesive-modern-aesthetic-throughout-the-application",
+      "title": "Apply a creative visual theme with distinctive colors (avoiding blue and purple), typography, and layout style that creates a cohesive, modern aesthetic throughout the application",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-the-current-video-upload-url-interface-with-a-video-player-component-that-displays-a-user-provided-video-file-in-the-master-presentation-section-on-the-home-page",
+      "title": "Replace the current video upload/URL interface with a video player component that displays a user-provided video file in the Master Presentation section on the home page",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-video-upload-interface-that-allows-the-user-to-provide-their-video-file-for-the-master-presentation-section",
+      "title": "Create a video upload interface that allows the user to provide their video file for the Master Presentation section",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-scene-3-section-on-the-home-page-with-scene-03-label-in-blue-childhood-growth-title-hand-foot-ossification-subtitle-description-text-about-ossification-centers-appearing-in-predictable-sequences-distal-radius-ossifies-at-1-year-distal-ulna-appears-around-age-3-in-females-and-6-in-males-and-three-tags-labeled-epiphyseal-fusion-5th-metatarsal-and-1-2-year-error",
+      "title": "Create Scene 3 section on the Home page with 'SCENE 03' label in blue, 'Childhood Growth' title, 'Hand & Foot Ossification' subtitle, description text about ossification centers appearing in predictable sequences (distal radius ossifies at ~1 year, distal ulna appears around age 3 in females and 6 in males), and three tags labeled 'EPIPHYSEAL FUSION', '5TH METATARSAL', and '±1-2 YEAR ERROR'",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-illustration-image-showing-hand-and-foot-bones-to-scene-3-displayed-on-the-right-side-within-a-dark-blue-card-container-matching-the-uploaded-image-5-png-design",
+      "title": "Add an illustration image showing hand and foot bones to Scene 3, displayed on the right side within a dark blue card container matching the uploaded image-5.png design",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-scene-4-section-on-the-home-page-with-scene-04-label-in-blue-young-adult-transitions-title-ectocranial-suture-closure-subtitle-description-text-about-growth-plates-closing-and-sagittal-suture-fusion-beginning-around-25-30-years-and-slowly-obliterating-the-visible-seams-of-the-skull-and-three-tags-labeled-obliteration-lambdoid-suture-and-chronological-windows",
+      "title": "Create Scene 4 section on the Home page with 'SCENE 04' label in blue, 'Young Adult Transitions' title, 'Ectocranial Suture Closure' subtitle, description text about growth plates closing and sagittal suture fusion beginning around 25-30 years and slowly obliterating the visible seams of the skull, and three tags labeled 'OBLITERATION', 'LAMBDOID SUTURE', and 'CHRONOLOGICAL WINDOWS'",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-brain-model-photograph-to-scene-4-displayed-on-the-right-side-within-a-light-gray-card-container-showing-a-sagittal-cross-section-of-the-brain-with-visible-anatomical-structures-matching-the-uploaded-image-6-png-design",
+      "title": "Add a brain model photograph to Scene 4, displayed on the right side within a light gray card container showing a sagittal cross-section of the brain with visible anatomical structures matching the uploaded image-6.png design",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-position-scene-3-and-scene-4-sections-in-the-chronology-flow-on-the-home-page-maintaining-consistent-spacing-and-layout-with-other-scene-sections",
+      "title": "Position Scene 3 and Scene 4 sections in the chronology flow on the Home page, maintaining consistent spacing and layout with other scene sections",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-scene-5-section-on-the-home-page-with-scene-05-label-in-blue-mature-adult-indicators-title-pubic-symphysis-sternal-ends-subtitle-description-text-about-the-pubic-symphysis-face-becoming-more-textured-and-irregular-with-age-with-modal-ridges-breaking-down-after-age-40-and-the-sternal-end-of-ribs-showing-progressive-porosity-and-irregular-margins-and-three-tags-labeled-suchey-brooks-rib-phase-and-degenerative-changes",
+      "title": "Create Scene 5 section on the Home page with 'SCENE 05' label in blue, 'Mature Adult Indicators' title, 'Pubic Symphysis & Sternal Ends' subtitle, description text about the pubic symphysis face becoming more textured and irregular with age, with modal ridges breaking down after age 40, and the sternal end of ribs showing progressive porosity and irregular margins, and three tags labeled 'SUCHEY-BROOKS', 'RIB PHASE', and 'DEGENERATIVE CHANGES'",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-accurate-anatomical-illustration-showing-the-pubic-symphysis-and-sternal-rib-ends-to-scene-5-displayed-on-the-right-side-within-a-card-container-matching-the-existing-scene-design-pattern",
+      "title": "Add an accurate anatomical illustration showing the pubic symphysis and sternal rib ends to Scene 5, displayed on the right side within a card container matching the existing scene design pattern",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-scene-6-section-on-the-home-page-with-scene-06-label-in-blue-late-adult-estimation-title-cranial-suture-obliteration-subtitle-description-text-about-complete-fusion-of-cranial-sutures-typically-occurring-after-age-50-with-the-coronal-suture-often-being-the-last-to-close-and-increased-osteoarthritis-visible-in-major-joints-and-three-tags-labeled-vault-sutures-osteoarthritis-and-wide-ranges",
+      "title": "Create Scene 6 section on the Home page with 'SCENE 06' label in blue, 'Late Adult Estimation' title, 'Cranial Suture Obliteration' subtitle, description text about complete fusion of cranial sutures typically occurring after age 50, with the coronal suture often being the last to close, and increased osteoarthritis visible in major joints, and three tags labeled 'VAULT SUTURES', 'OSTEOARTHRITIS', and 'WIDE RANGES'",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-accurate-anatomical-illustration-showing-cranial-sutures-and-joint-osteoarthritis-to-scene-6-displayed-on-the-right-side-within-a-card-container-matching-the-existing-scene-design-pattern",
+      "title": "Add an accurate anatomical illustration showing cranial sutures and joint osteoarthritis to Scene 6, displayed on the right side within a card container matching the existing scene design pattern",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-scene-7-section-on-the-home-page-with-scene-07-label-in-blue-summary-of-methods-title-multivariate-approach-subtitle-description-text-explaining-that-no-single-skeletal-indicator-is-perfectly-reliable-and-forensic-anthropologists-combine-multiple-age-markers-from-dental-development-epiphyseal-fusion-pubic-symphysis-morphology-and-cranial-suture-closure-to-narrow-age-ranges-and-increase-accuracy-and-three-tags-labeled-combined-analysis-confidence-intervals-and-population-variance",
+      "title": "Create Scene 7 section on the Home page with 'SCENE 07' label in blue, 'Summary of Methods' title, 'Multivariate Approach' subtitle, description text explaining that no single skeletal indicator is perfectly reliable, and forensic anthropologists combine multiple age markers from dental development, epiphyseal fusion, pubic symphysis morphology, and cranial suture closure to narrow age ranges and increase accuracy, and three tags labeled 'COMBINED ANALYSIS', 'CONFIDENCE INTERVALS', and 'POPULATION VARIANCE'",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-accurate-composite-anatomical-illustration-showing-multiple-skeletal-age-indicators-dental-epiphyseal-pubic-symphysis-cranial-to-scene-7-displayed-on-the-right-side-within-a-card-container-matching-the-existing-scene-design-pattern",
+      "title": "Add an accurate composite anatomical illustration showing multiple skeletal age indicators (dental, epiphyseal, pubic symphysis, cranial) to Scene 7, displayed on the right side within a card container matching the existing scene design pattern",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-scene-2-section-on-the-home-page-with-scene-02-label-in-blue-infant-development-title-appropriate-subtitle-related-to-fetal-skull-development-and-prenatal-age-estimation-and-descriptive-text-about-cranial-sutures-coronal-sagittal-lambdoid-fontanels-anterior-and-posterior-and-biparietal-measurements-used-in-prenatal-and-infant-age-estimation",
+      "title": "Create Scene 2 section on the Home page with 'SCENE 02' label in blue, 'Infant Development' title, appropriate subtitle related to fetal skull development and prenatal age estimation, and descriptive text about cranial sutures (coronal, sagittal, lambdoid), fontanels (anterior and posterior), and biparietal measurements used in prenatal and infant age estimation",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-the-uploaded-fetal-skull-diagram-image-image-10-png-to-scene-2-displayed-on-the-right-side-within-a-styled-card-container-matching-the-existing-scene-design-pattern-showing-the-labeled-anatomical-features-including-biparietal-measurement-9-5-cm-coronal-suture-sagittal-suture-lambdoid-suture-anterior-fontanel-and-posterior-fontanel",
+      "title": "Add the uploaded fetal skull diagram image (image-10.png) to Scene 2, displayed on the right side within a styled card container matching the existing scene design pattern, showing the labeled anatomical features including biparietal measurement (9.5 cm), coronal suture, sagittal suture, lambdoid suture, anterior fontanel, and posterior fontanel",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-three-descriptive-tags-to-scene-2-related-to-fetal-skull-development-and-infant-age-estimation-such-as-fontanel-closure-biparietal-diameter-and-prenatal-markers-displayed-in-the-same-tag-style-used-in-other-scene-sections",
+      "title": "Add three descriptive tags to Scene 2 related to fetal skull development and infant age estimation, such as 'FONTANEL CLOSURE', 'BIPARIETAL DIAMETER', and 'PRENATAL MARKERS', displayed in the same tag style used in other scene sections",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-position-scene-2-in-the-correct-chronological-order-on-the-home-page-between-scene-1-and-scene-3-maintaining-consistent-spacing-and-layout-with-other-scene-sections-in-the-interactive-chronology-flow",
+      "title": "Position Scene 2 in the correct chronological order on the Home page between Scene 1 and Scene 3, maintaining consistent spacing and layout with other scene sections in the interactive chronology flow",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-scene-01-label-in-blue-color-to-scene-1-section-on-the-home-page",
+      "title": "Add 'SCENE 01' label in blue color to Scene 1 section on the Home page",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-title-subtitle-and-descriptive-text-content-to-scene-1-section-covering-prenatal-fetal-age-estimation-methods-appropriate-for-the-earliest-life-stage-in-the-skeletal-age-estimation-chronology",
+      "title": "Add title, subtitle, and descriptive text content to Scene 1 section covering prenatal/fetal age estimation methods appropriate for the earliest life stage in the skeletal age estimation chronology",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-three-descriptive-tags-to-scene-1-related-to-prenatal-fetal-skeletal-age-estimation-displayed-in-the-same-tag-style-used-in-other-scene-sections",
+      "title": "Add three descriptive tags to Scene 1 related to prenatal/fetal skeletal age estimation, displayed in the same tag style used in other scene sections",
+      "reqIds": [
+        "REQ-26"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-anatomical-illustration-image-to-scene-1-showing-prenatal-fetal-skeletal-development-markers-displayed-on-the-right-side-within-a-styled-card-container-matching-the-existing-scene-design-pattern-used-in-scene-2-scene-3-and-other-scenes",
+      "title": "Add an anatomical illustration image to Scene 1 showing prenatal/fetal skeletal development markers, displayed on the right side within a styled card container matching the existing scene design pattern used in Scene 2, Scene 3, and other scenes",
+      "reqIds": [
+        "REQ-27"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-scene-1-is-positioned-as-the-first-scene-in-the-chronological-order-on-the-home-page-before-scene-2-maintaining-consistent-spacing-and-layout-with-other-scene-sections-in-the-interactive-chronology-flow",
+      "title": "Ensure Scene 1 is positioned as the first scene in the chronological order on the Home page, before Scene 2, maintaining consistent spacing and layout with other scene sections in the interactive chronology flow",
+      "reqIds": [
+        "REQ-28"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-video-upload-functionality-in-mastervideouploader-component-to-properly-handle-mp4-file-uploads-and-resolve-the-failure-to-upload-error",
+      "title": "Fix the video upload functionality in MasterVideoUploader component to properly handle MP4 file uploads and resolve the 'failure to upload' error",
+      "reqIds": [
+        "REQ-29"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-proper-error-handling-and-user-feedback-to-the-video-upload-process-including-specific-error-messages-that-help-diagnose-upload-failures",
+      "title": "Add proper error handling and user feedback to the video upload process, including specific error messages that help diagnose upload failures",
+      "reqIds": [
+        "REQ-31"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-verify-mp4-video-format-compatibility-and-add-validation-to-ensure-uploaded-files-meet-required-specifications-for-playback-in-the-video-player",
+      "title": "Verify MP4 video format compatibility and add validation to ensure uploaded files meet required specifications for playback in the video player",
+      "reqIds": [
+        "REQ-32"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-an-interactive-metrics-dashboard-section-on-the-home-page-that-displays-charts-visualizing-forensic-age-estimation-data-across-all-seven-life-stages",
+      "title": "Create an interactive metrics dashboard section on the Home page that displays charts visualizing forensic age estimation data across all seven life stages",
+      "reqIds": [
+        "REQ-33"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-position-the-interactive-metrics-dashboard-section-at-the-bottom-of-the-home-page-after-all-seven-scene-sections-in-the-skeletal-age-estimation-chronology",
+      "title": "Position the interactive metrics dashboard section at the bottom of the Home page, after all seven Scene sections in the skeletal age estimation chronology",
+      "reqIds": [
+        "REQ-34"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-charts-showing-age-estimation-accuracy-ranges-across-different-skeletal-indicators-dental-development-epiphyseal-fusion-pubic-symphysis-cranial-sutures-with-interactive-hover-tooltips-displaying-detailed-information",
+      "title": "Implement charts showing age estimation accuracy ranges across different skeletal indicators (dental development, epiphyseal fusion, pubic symphysis, cranial sutures) with interactive hover tooltips displaying detailed information",
+      "reqIds": [
+        "REQ-35"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-style-the-metrics-dashboard-to-match-the-existing-dark-theme-with-blue-accents-using-the-established-oklch-color-system-and-maintaining-visual-consistency-with-scene-sections",
+      "title": "Style the metrics dashboard to match the existing dark theme with blue accents, using the established OKLCH color system and maintaining visual consistency with Scene sections",
+      "reqIds": [
+        "REQ-36"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-metric-reference-standards-section-title-styling-to-match-the-reference-image-with-white-text-color-and-centered-alignment",
+      "title": "Update the Metric Reference Standards section title styling to match the reference image with white text color and centered alignment",
+      "reqIds": [
+        "REQ-37"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-subtitle-text-below-the-main-title-to-read-comparative-analysis-of-ossification-timelines-and-morphological-shifts-with-gray-text-color-matching-the-reference-image",
+      "title": "Update the subtitle text below the main title to read 'Comparative analysis of ossification timelines and morphological shifts.' with gray text color matching the reference image",
+      "reqIds": [
+        "REQ-38"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-style-both-chart-containers-with-dark-navy-dark-blue-card-backgrounds-subtle-borders-and-proper-spacing-to-match-the-reference-image-layout",
+      "title": "Style both chart containers with dark navy/dark blue card backgrounds, subtle borders, and proper spacing to match the reference image layout",
+      "reqIds": [
+        "REQ-39"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-left-chart-to-display-ossification-timelines-years-as-the-title-in-uppercase-with-light-gray-text-positioned-at-the-top-left-of-the-chart-card",
+      "title": "Update the left chart to display 'OSSIFICATION TIMELINES (YEARS)' as the title in uppercase with light gray text, positioned at the top-left of the chart card",
+      "reqIds": [
+        "REQ-40"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-configure-the-ossification-timelines-chart-as-a-grouped-bar-chart-with-blue-bars-for-female-fusion-age-and-gray-bars-for-male-fusion-age-displaying-data-for-distal-radius-distal-ulna-5th-metatarsal-and-distal-tibia",
+      "title": "Configure the Ossification Timelines chart as a grouped bar chart with blue bars for 'Female Fusion Age' and gray bars for 'Male Fusion Age' displaying data for Distal Radius, Distal Ulna, 5th Metatarsal, and Distal Tibia",
+      "reqIds": [
+        "REQ-41"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-set-ossification-timelines-chart-data-values-to-match-reference-image-distal-radius-female-18-male-19-distal-ulna-female-17-male-19-5th-metatarsal-female-14-male-16-distal-tibia-female-14-male-17",
+      "title": "Set Ossification Timelines chart data values to match reference image: Distal Radius (Female: 18, Male: 19), Distal Ulna (Female: 17, Male: 19), 5th Metatarsal (Female: 14, Male: 16), Distal Tibia (Female: 14, Male: 17)",
+      "reqIds": [
+        "REQ-42"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-right-chart-to-display-suchey-brooks-phase-probabilities-as-the-title-in-uppercase-with-light-gray-text-positioned-at-the-top-left-of-the-chart-card",
+      "title": "Update the right chart to display 'SUCHEY-BROOKS PHASE PROBABILITIES' as the title in uppercase with light gray text, positioned at the top-left of the chart card",
+      "reqIds": [
+        "REQ-43"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-configure-the-suchey-brooks-chart-as-a-line-chart-with-circular-markers-displaying-mean-age-male-in-blue-showing-the-progression-across-phase-i-through-phase-vi",
+      "title": "Configure the Suchey-Brooks chart as a line chart with circular markers displaying 'Mean Age (Male)' in blue, showing the progression across Phase I through Phase VI",
+      "reqIds": [
+        "REQ-44"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-set-suchey-brooks-phase-probabilities-chart-data-values-to-match-reference-image-phase-i-23-phase-ii-28-phase-iii-30-phase-iv-35-phase-v-45-phase-vi-61",
+      "title": "Set Suchey-Brooks Phase Probabilities chart data values to match reference image: Phase I (23), Phase II (28), Phase III (30), Phase IV (35), Phase V (45), Phase VI (61)",
+      "reqIds": [
+        "REQ-45"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-style-both-charts-with-dark-navy-backgrounds-light-gray-grid-lines-light-gray-axis-labels-and-text-and-ensure-legends-use-the-same-color-scheme-as-shown-in-the-reference-image",
+      "title": "Style both charts with dark navy backgrounds, light gray grid lines, light gray axis labels and text, and ensure legends use the same color scheme as shown in the reference image",
+      "reqIds": [
+        "REQ-46"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-mastervideouploader-component-to-implement-progressive-chunked-upload-with-retry-logic-when-encountering-rejection-errors-from-the-replica",
+      "title": "Update MasterVideoUploader component to implement progressive chunked upload with retry logic when encountering rejection errors from the replica",
+      "reqIds": [
+        "REQ-49"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-detailed-error-logging-and-user-feedback-in-mastervideouploader-to-capture-and-display-the-specific-replica-rejection-error-message-helping-diagnose-the-root-cause-of-upload-failures",
+      "title": "Add detailed error logging and user feedback in MasterVideoUploader to capture and display the specific replica rejection error message, helping diagnose the root cause of upload failures",
+      "reqIds": [
+        "REQ-50"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-verify-and-optimize-the-externalblob-withuploadprogress-implementation-in-mastervideouploader-to-ensure-compatibility-with-chunked-uploads-and-prevent-immediate-rejection-errors",
+      "title": "Verify and optimize the ExternalBlob.withUploadProgress() implementation in MasterVideoUploader to ensure compatibility with chunked uploads and prevent immediate rejection errors",
+      "reqIds": [
+        "REQ-51"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-modify-the-master-presentation-section-on-the-home-page-to-conditionally-render-either-the-mastervideouploader-component-when-no-video-exists-or-the-masterpresentationplayer-component-when-a-video-has-been-uploaded",
+      "title": "Modify the Master Presentation section on the Home page to conditionally render either the MasterVideoUploader component (when no video exists) or the MasterPresentationPlayer component (when a video has been uploaded)",
+      "reqIds": [
+        "REQ-52"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-masterpresentationplayer-component-to-fetch-and-display-the-uploaded-master-video-using-a-video-element-with-the-video-blob-url-retrieved-from-the-backend-getmastervideo-query",
+      "title": "Update the MasterPresentationPlayer component to fetch and display the uploaded master video using a video element with the video blob URL retrieved from the backend getMasterVideo query",
+      "reqIds": [
+        "REQ-53"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-configure-the-video-element-in-masterpresentationplayer-with-autoplay-loop-and-muted-attributes-to-enable-automatic-playback-when-the-page-loads",
+      "title": "Configure the video element in MasterPresentationPlayer with autoplay, loop, and muted attributes to enable automatic playback when the page loads",
+      "reqIds": [
+        "REQ-54"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-loading-and-error-states-to-the-masterpresentationplayer-component-to-handle-video-fetch-operations-gracefully",
+      "title": "Add loading and error states to the MasterPresentationPlayer component to handle video fetch operations gracefully",
+      "reqIds": [
+        "REQ-55"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-style-the-video-element-in-masterpresentationplayer-to-fill-the-master-presentation-section-container-with-appropriate-aspect-ratio-rounded-corners-and-responsive-sizing-matching-the-existing-dark-theme-design",
+      "title": "Style the video element in MasterPresentationPlayer to fill the Master Presentation section container with appropriate aspect ratio, rounded corners, and responsive sizing matching the existing dark theme design",
+      "reqIds": [
+        "REQ-56"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-mastervideouploader-component-to-handle-the-upload-completion-response-from-the-backend-and-trigger-a-success-state-that-notifies-the-parent-component-home-page-to-refresh-the-video-existence-check",
+      "title": "Update the MasterVideoUploader component to handle the upload completion response from the backend and trigger a success state that notifies the parent component (Home page) to refresh the video existence check",
+      "reqIds": [
+        "REQ-58"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-modify-the-conditional-rendering-logic-in-the-master-presentation-section-on-frontend-src-pages-home-tsx-to-automatically-invalidate-and-refetch-the-getmastervideo-query-after-successful-upload-completion-causing-the-ui-to-switch-from-mastervideouploader-to-masterpresentationplayer",
+      "title": "Modify the conditional rendering logic in the Master Presentation section on frontend/src/pages/Home.tsx to automatically invalidate and refetch the getMasterVideo query after successful upload completion, causing the UI to switch from MasterVideoUploader to MasterPresentationPlayer",
+      "reqIds": [
+        "REQ-59"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-visible-success-message-or-notification-in-the-mastervideouploader-component-that-appears-after-the-video-upload-reaches-100-and-is-successfully-confirmed-by-the-backend-informing-the-user-that-the-upload-completed-successfully",
+      "title": "Add a visible success message or notification in the MasterVideoUploader component that appears after the video upload reaches 100% and is successfully confirmed by the backend, informing the user that the upload completed successfully",
+      "reqIds": [
+        "REQ-60"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-verify-that-the-chunked-upload-implementation-in-mastervideouploader-correctly-handles-the-49-1-mb-49-100-kb-video-file-size-by-ensuring-all-chunks-are-properly-sent-received-and-acknowledged-by-the-backend-without-data-loss",
+      "title": "Verify that the chunked upload implementation in MasterVideoUploader correctly handles the 49.1 MB (49,100 KB) video file size by ensuring all chunks are properly sent, received, and acknowledged by the backend without data loss",
+      "reqIds": [
+        "REQ-61"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-visible-success-message-in-the-mastervideouploader-component-that-displays-immediately-after-the-video-upload-reaches-100-and-before-attempting-to-retrieve-the-video-informing-the-user-that-the-upload-completed-successfully",
+      "title": "Add a visible success message in the MasterVideoUploader component that displays immediately after the video upload reaches 100% and before attempting to retrieve the video, informing the user that the upload completed successfully",
+      "reqIds": [
+        "REQ-62"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-exponential-backoff-retry-logic-in-the-usegetmastervideoblob-hook-in-frontend-src-hooks-usequeries-ts-to-handle-temporary-connection-failures-when-retrieving-the-video-blob-after-upload-completion",
+      "title": "Implement exponential backoff retry logic in the useGetMasterVideoBlob hook in frontend/src/hooks/useQueries.ts to handle temporary connection failures when retrieving the video blob after upload completion",
+      "reqIds": [
+        "REQ-64"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-comprehensive-error-handling-in-masterpresentationplayer-component-in-frontend-src-components-masterpresentationplayer-tsx-to-display-specific-error-messages-when-video-retrieval-fails-including-connection-reset-errors-with-actionable-retry-options-for-the-user",
+      "title": "Add comprehensive error handling in MasterPresentationPlayer component in frontend/src/components/MasterPresentationPlayer.tsx to display specific error messages when video retrieval fails, including connection reset errors, with actionable retry options for the user",
+      "reqIds": [
+        "REQ-66"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-configurable-delay-2-3-seconds-in-the-mastervideouploader-component-after-the-upload-complete-success-message-appears-and-before-the-component-attempts-to-trigger-the-video-player-transition-giving-the-backend-time-to-finalize-video-storage",
+      "title": "Add a configurable delay (2-3 seconds) in the MasterVideoUploader component after the 'Upload Complete!' success message appears and before the component attempts to trigger the video player transition, giving the backend time to finalize video storage",
+      "reqIds": [
+        "REQ-67"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-modify-the-conditional-rendering-logic-in-the-master-presentation-section-on-frontend-src-pages-home-tsx-to-explicitly-check-video-availability-before-switching-from-mastervideouploader-to-masterpresentationplayer-preventing-premature-ui-transitions",
+      "title": "Modify the conditional rendering logic in the Master Presentation section on frontend/src/pages/Home.tsx to explicitly check video availability before switching from MasterVideoUploader to MasterPresentationPlayer, preventing premature UI transitions",
+      "reqIds": [
+        "REQ-68"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-polling-logic-in-the-masterpresentationplayer-component-that-retries-fetching-the-video-blob-with-increasing-intervals-1s-2s-4s-8s-up-to-5-attempts-if-the-initial-retrieval-after-upload-returns-empty-or-fails-providing-feedback-on-each-retry-attempt",
+      "title": "Implement polling logic in the MasterPresentationPlayer component that retries fetching the video blob with increasing intervals (1s, 2s, 4s, 8s) up to 5 attempts if the initial retrieval after upload returns empty or fails, providing feedback on each retry attempt",
+      "reqIds": [
+        "REQ-69"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-status-messaging-in-the-master-presentation-section-to-clearly-communicate-the-current-state-during-the-post-upload-transition-phase-including-finalizing-upload-preparing-video-for-playback-and-loading-video-player-messages-with-appropriate-timing",
+      "title": "Update the status messaging in the Master Presentation section to clearly communicate the current state during the post-upload transition phase, including 'Finalizing upload...', 'Preparing video for playback...', and 'Loading video player...' messages with appropriate timing",
+      "reqIds": [
+        "REQ-70"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-detailed-console-logging-throughout-the-upload-completion-and-video-retrieval-flow-in-both-mastervideouploader-and-masterpresentationplayer-components-to-track-timing-state-transitions-query-invalidation-and-blob-retrieval-for-debugging-the-stuck-loading-issue",
+      "title": "Add detailed console logging throughout the upload completion and video retrieval flow in both MasterVideoUploader and MasterPresentationPlayer components to track timing, state transitions, query invalidation, and blob retrieval for debugging the stuck loading issue",
+      "reqIds": [
+        "REQ-71"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-verify-the-mastervideouploader-component-in-frontend-src-components-mastervideouploader-tsx-properly-displays-the-upload-complete-success-message-after-reaching-100-upload-progress-and-includes-the-2-3-second-configurable-delay-before-triggering-the-video-player-transition",
+      "title": "Verify the MasterVideoUploader component in frontend/src/components/MasterVideoUploader.tsx properly displays the 'Upload Complete!' success message after reaching 100% upload progress and includes the 2-3 second configurable delay before triggering the video player transition",
+      "reqIds": [
+        "REQ-72"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-verify-the-conditional-rendering-logic-in-the-master-presentation-section-on-frontend-src-pages-home-tsx-explicitly-checks-video-availability-before-switching-from-mastervideouploader-to-masterpresentationplayer-preventing-premature-ui-transitions-that-leave-the-uploader-stuck-in-loading-state",
+      "title": "Verify the conditional rendering logic in the Master Presentation section on frontend/src/pages/Home.tsx explicitly checks video availability before switching from MasterVideoUploader to MasterPresentationPlayer, preventing premature UI transitions that leave the uploader stuck in loading state",
+      "reqIds": [
+        "REQ-73"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-verify-the-masterpresentationplayer-component-in-frontend-src-components-masterpresentationplayer-tsx-implements-polling-logic-with-exponential-backoff-1s-2s-4s-8s-intervals-up-to-5-attempts-when-initial-video-blob-retrieval-fails-or-returns-empty-after-upload-completion",
+      "title": "Verify the MasterPresentationPlayer component in frontend/src/components/MasterPresentationPlayer.tsx implements polling logic with exponential backoff (1s, 2s, 4s, 8s intervals, up to 5 attempts) when initial video blob retrieval fails or returns empty after upload completion",
+      "reqIds": [
+        "REQ-74"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-verify-the-usegetmastervideoblob-hook-in-frontend-src-hooks-usequeries-ts-implements-exponential-backoff-retry-logic-to-handle-err-connection-reset-and-other-temporary-connection-failures-when-retrieving-the-video-blob",
+      "title": "Verify the useGetMasterVideoBlob hook in frontend/src/hooks/useQueries.ts implements exponential backoff retry logic to handle ERR_CONNECTION_RESET and other temporary connection failures when retrieving the video blob",
+      "reqIds": [
+        "REQ-75"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-verify-comprehensive-error-handling-in-masterpresentationplayer-component-displays-specific-error-messages-for-connection-reset-errors-and-other-video-retrieval-failures-with-actionable-retry-button-for-the-user",
+      "title": "Verify comprehensive error handling in MasterPresentationPlayer component displays specific error messages for connection reset errors and other video retrieval failures, with actionable retry button for the user",
+      "reqIds": [
+        "REQ-76"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-verify-the-status-messaging-in-the-master-presentation-section-displays-appropriate-state-messages-during-the-post-upload-transition-phase-including-finalizing-upload-preparing-video-for-playback-and-loading-video-player-with-appropriate-timing",
+      "title": "Verify the status messaging in the Master Presentation section displays appropriate state messages during the post-upload transition phase, including 'Finalizing upload...', 'Preparing video for playback...', and 'Loading video player...' with appropriate timing",
+      "reqIds": [
+        "REQ-77"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-verify-detailed-console-logging-exists-throughout-the-upload-completion-and-video-retrieval-flow-in-both-mastervideouploader-and-masterpresentationplayer-components-to-track-timing-state-transitions-query-invalidation-and-blob-retrieval-for-debugging",
+      "title": "Verify detailed console logging exists throughout the upload completion and video retrieval flow in both MasterVideoUploader and MasterPresentationPlayer components to track timing, state transitions, query invalidation, and blob retrieval for debugging",
+      "reqIds": [
+        "REQ-78"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-mastervideouploader-component-in-frontend-src-components-mastervideouploader-tsx-to-handle-finalization-failure-responses-from-the-backend-by-displaying-specific-error-messages-and-providing-a-retry-upload-option",
+      "title": "Update the MasterVideoUploader component in frontend/src/components/MasterVideoUploader.tsx to handle finalization failure responses from the backend by displaying specific error messages and providing a retry upload option",
+      "reqIds": [
+        "REQ-84"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-timeout-mechanism-30-seconds-in-the-mastervideouploader-component-that-detects-when-finalization-takes-too-long-and-displays-a-timeout-error-message-with-retry-option-instead-of-staying-stuck-indefinitely",
+      "title": "Add a timeout mechanism (30 seconds) in the MasterVideoUploader component that detects when finalization takes too long and displays a timeout error message with retry option instead of staying stuck indefinitely",
+      "reqIds": [
+        "REQ-85"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-conditional-rendering-logic-in-frontend-src-pages-home-tsx-to-detect-finalization-failures-by-checking-if-the-video-metadata-query-returns-empty-results-after-upload-completion-and-maintain-the-uploader-ui-with-error-state-instead-of-switching-to-the-player",
+      "title": "Update the conditional rendering logic in frontend/src/pages/Home.tsx to detect finalization failures by checking if the video metadata query returns empty results after upload completion, and maintain the uploader UI with error state instead of switching to the player",
+      "reqIds": [
+        "REQ-86"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-3",
+      "summary": "Place video in Master Presentation section with play button overlay",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Implement a backend endpoint that accepts and stores the user's video file for display in the Master Presentation section",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Create Scene 5 section with Mature Adult Indicators content from uploaded image",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Create Scene 6 section with Late Adult Estimation content from uploaded image",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Create Scene 7 section with Summary of Methods content from uploaded image",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Create Scene 2 section with Infant Development content using uploaded fetal skull diagram image",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Enhance backend video storage implementation in main.mo to properly handle MP4 video file data and ensure reliable blob storage for ExternalBlob objects",
+      "reqIds": [
+        "REQ-30"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Implement chunked upload strategy in the backend to handle large video files (up to 500 MB) by accepting video data in smaller segments to avoid message size limit rejections",
+      "reqIds": [
+        "REQ-47"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Increase the backend canister's stable memory allocation and upgrade settings to accommodate large video files alongside existing chart/graph data without capacity constraints",
+      "reqIds": [
+        "REQ-48"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Fix the backend finalizeVideoUpload function in backend/main.mo to properly confirm and persist the completed video upload after all chunks are received, ensuring the video metadata is correctly stored and retrievable",
+      "reqIds": [
+        "REQ-57"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Fix the backend getMasterVideo query endpoint in backend/main.mo to properly serve the 49.1 MB video blob without timing out or causing ERR_CONNECTION_RESET errors when the frontend attempts to retrieve it",
+      "reqIds": [
+        "REQ-63"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-19",
+      "summary": "Optimize the backend video blob serialization in backend/main.mo to ensure the 49.1 MB video data can be efficiently retrieved in a single response or implement chunked retrieval if the blob size exceeds canister response limits",
+      "reqIds": [
+        "REQ-65"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-20",
+      "summary": "Add delay after upload completion before video retrieval and implement polling logic in video player to handle backend finalization",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-21",
+      "summary": "Improve UI transition logic to smoothly switch from uploader to player once video is confirmed retrievable",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-22",
+      "summary": "Add better status messaging during the preparing for playback phase so user can see what is happening",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-30",
+      "summary": "Verify the backend finalizeVideoUpload function in backend/main.mo properly confirms and persists the completed video upload after all 18 chunks are received for the 49.1 MB video file, ensuring video metadata is correctly stored and immediately retrievable",
+      "reqIds": [
+        "REQ-79"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-31",
+      "summary": "Verify the backend getMasterVideo query endpoint in backend/main.mo can reliably serve the 49.1 MB video blob without timing out or causing ERR_CONNECTION_RESET errors when the frontend attempts to retrieve it immediately after upload completion",
+      "reqIds": [
+        "REQ-80"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-32",
+      "summary": "Fix the backend finalizeVideoUpload function in backend/main.mo to properly persist video metadata to stable storage after all chunks are received, ensuring the video state is committed and immediately available for retrieval",
+      "reqIds": [
+        "REQ-81"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-33",
+      "summary": "Add explicit error handling and logging in backend/main.mo finalizeVideoUpload function to catch and report any storage failures, memory allocation issues, or serialization errors that prevent video persistence",
+      "reqIds": [
+        "REQ-82"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-34",
+      "summary": "Verify the backend stable memory allocation in backend/main.mo can accommodate the 49.1 MB video plus existing application data without exceeding canister limits, and add pre-finalization validation to check available storage capacity",
+      "reqIds": [
+        "REQ-83"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Video Loop Site",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

@@ -1,0 +1,89 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-20T01:30:49.348Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 6,
+    "implemented": 3,
+    "items": [
+      {
+        "id": "REQ-81",
+        "summary": "Fix the backend finalizeVideoUpload function in backend/main.mo to properly persist video metadata to stable storage after all chunks are received, ensuring the video state is committed and immediately available for retrieval",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-82",
+        "summary": "Add explicit error handling and logging in backend/main.mo finalizeVideoUpload function to catch and report any storage failures, memory allocation issues, or serialization errors that prevent video persistence",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-83",
+        "summary": "Verify the backend stable memory allocation in backend/main.mo can accommodate the 49.1 MB video plus existing application data without exceeding canister limits, and add pre-finalization validation to check available storage capacity",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-84",
+        "summary": "Update the MasterVideoUploader component in frontend/src/components/MasterVideoUploader.tsx to handle finalization failure responses from the backend by displaying specific error messages and providing a retry upload option",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/MasterVideoUploader.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/MasterVideoUploader.tsx"
+        ]
+      },
+      {
+        "id": "REQ-85",
+        "summary": "Add a timeout mechanism (30 seconds) in the MasterVideoUploader component that detects when finalization takes too long and displays a timeout error message with retry option instead of staying stuck indefinitely",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/MasterVideoUploader.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/MasterVideoUploader.tsx"
+        ]
+      },
+      {
+        "id": "REQ-86",
+        "summary": "Update the conditional rendering logic in frontend/src/pages/Home.tsx to detect finalization failures by checking if the video metadata query returns empty results after upload completion, and maintain the uploader UI with error state instead of switching to the player",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/Home.tsx",
+          "frontend/src/components/MasterVideoUploader.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/Home.tsx",
+          "frontend/src/components/MasterVideoUploader.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "backend/main.mo",
+    "backend/migration.mo",
+    "build-request.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
+    "frontend/src/components/MasterVideoUploader.tsx",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
+    "frontend/src/pages/Home.tsx",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}
